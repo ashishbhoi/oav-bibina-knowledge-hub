@@ -13,12 +13,14 @@ if (!password) {
     process.exit(1);
 }
 
-async function hashPassword(password) {
+async function hashPassword() {
     try {
         const salt = await bcrypt.genSalt(12);
         const hash = await bcrypt.hash(password, salt);
 
-        console.log("Password:", password);
+        // Clear password from memory immediately after use
+        process.argv[2] = undefined;
+
         console.log("Hashed Password:", hash);
         console.log("\nSQL Command to create admin user:");
         console.log(
