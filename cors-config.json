@@ -1,0 +1,25 @@
+{
+  "rules": [
+    {
+      "AllowedOrigins": [
+        "http://127.0.0.1:8787",
+        "http://localhost:8787",
+        "https://oav-bibina-knowledge-hub.pages.dev"
+      ],
+      "AllowedMethods": [
+        "GET",
+        "PUT",
+        "POST",
+        "DELETE",
+        "HEAD"
+      ],
+      "AllowedHeaders": [
+        "*"
+      ],
+      "ExposeHeaders": [
+        "ETag"
+      ],
+      "MaxAgeSeconds": 3600
+    }
+  ]
+}
