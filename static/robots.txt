@@ -1,3 +1,18 @@
-# allow crawling everything by default
+# OAV Bibina Knowledge Hub - Robots.txt
 User-agent: *
-Disallow:
+Allow: /
+
+# Disallow admin pages from indexing
+Disallow: /admin/
+Disallow: /api/
+
+# Allow important public pages
+Allow: /
+Allow: /*/
+Allow: /*/*/
+
+# Sitemap location
+Sitemap: https://oav.akbhoi.me/sitemap.xml
+
+# Crawl delay (optional - helps prevent overloading)
+Crawl-delay: 1
