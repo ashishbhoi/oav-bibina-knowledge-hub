@@ -6,13 +6,8 @@ Allow: /
 Disallow: /admin/
 Disallow: /api/
 
-# Allow important public pages
-Allow: /
-Allow: /*/
-Allow: /*/*/
-
 # Sitemap location
-Sitemap: https://oav.akbhoi.me/sitemap.xml
+Sitemap: /sitemap.xml
 
 # Crawl delay (optional - helps prevent overloading)
 Crawl-delay: 1
