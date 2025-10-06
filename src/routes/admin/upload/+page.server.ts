@@ -91,7 +91,7 @@ export const actions: Actions = {
     }
   },
 
-  getUploadUrl: async ({ request, platform }) => {
+  generateUploadUrl: async ({ request, platform }) => {
     if (
       !platform?.env?.R2_ACCOUNT_ID ||
       !platform?.env?.R2_ACCESS_KEY_ID ||
@@ -102,10 +102,19 @@ export const actions: Actions = {
 
     try {
       const formData = await request.formData();
-      const fileName = formData.get("fileName")?.toString();
+      const fileName = formData.get("file_name")?.toString();
+      const fileSize = parseInt(
+        formData.get("file_size")?.toString() || "0",
+        10
+      );
 
       if (!fileName) {
         return fail(400, { message: "File name is required" });
+      }
+
+      if (fileSize > 10 * 1024 * 1024) {
+        // 10MB limit
+        return fail(400, { message: "File size too large (max 10MB)" });
       }
 
       // Create R2 client
@@ -127,47 +136,12 @@ export const actions: Actions = {
 
       return {
         success: true,
-        data: {
-          uploadUrl,
-          objectKey: key,
-        },
+        uploadUrl,
+        objectKey: key,
       };
     } catch (error) {
-      console.error("Get upload URL error:", error);
+      console.error("Generate upload URL error:", error);
       return fail(500, { message: "Failed to generate upload URL" });
-    }
-  },
-
-  generateUploadUrl: async ({ request, platform }) => {
-    try {
-      const formData = await request.formData();
-      const fileName = formData.get("file_name")?.toString();
-      const fileSize = parseInt(
-        formData.get("file_size")?.toString() || "0",
-        10
-      );
-
-      if (!fileName) {
-        return fail(400, { message: "File name is required" });
-      }
-
-      if (fileSize > 10 * 1024 * 1024) {
-        // 10MB limit
-        return fail(400, { message: "File size too large (max 10MB)" });
-      }
-
-      // Generate a unique object key
-      const fileExtension = fileName.split(".").pop() || "";
-      const key = `${uuidv4()}.${fileName}`;
-
-      return {
-        success: true,
-        key: key,
-        message: "Object key generated successfully",
-      };
-    } catch (error) {
-      console.error("Generate object key error:", error);
-      return fail(500, { message: "Failed to generate object key" });
     }
   },
 
