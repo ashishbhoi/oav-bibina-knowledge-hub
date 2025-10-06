@@ -214,14 +214,6 @@
       // Step 3: Add the new object key to form data
       formData.append("newR2ObjectKey", objectKey);
       formData.append("hasReplacement", "true");
-
-      console.log("✅ File uploaded successfully!");
-      console.log("📦 New object key:", objectKey);
-      console.log("📤 FormData contents:", {
-        id: formData.get("id"),
-        hasReplacement: formData.get("hasReplacement"),
-        newR2ObjectKey: formData.get("newR2ObjectKey"),
-      });
     } catch (error) {
       console.error("File upload failed:", error);
       alert("Failed to upload replacement file");

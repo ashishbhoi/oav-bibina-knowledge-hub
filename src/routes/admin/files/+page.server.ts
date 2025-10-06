@@ -57,10 +57,6 @@ export const actions = {
     try {
       // If file replacement is requested, handle R2 operations
       if (hasReplacement && newR2ObjectKey) {
-        console.log("File replacement requested");
-        console.log("Has replacement:", hasReplacement);
-        console.log("New R2 object key:", newR2ObjectKey);
-
         if (
           !platform?.env?.R2_ACCOUNT_ID ||
           !platform?.env?.R2_ACCESS_KEY_ID ||
@@ -75,8 +71,6 @@ export const actions = {
           return fail(404, { error: "File not found" });
         }
 
-        console.log("Old R2 object key:", oldNote.r2_object_key);
-
         // Create R2 client
         const r2Client = createR2Client(
           platform.env.R2_ACCOUNT_ID,
@@ -86,20 +80,16 @@ export const actions = {
 
         // Delete the old file from R2
         try {
-          console.log("Attempting to delete old file from R2...");
           await deleteFile(
             r2Client,
             "oav-knowledge-hub-files",
             oldNote.r2_object_key
           );
-          console.log("Old file deleted successfully");
         } catch (err) {
-          console.error("Failed to delete old file from R2:", err);
           // Continue even if old file deletion fails
         }
 
         // Update note with new R2 object key
-        console.log("Updating database with new object key...");
         await updateNote(
           platform.env.DB,
           id,
@@ -109,7 +99,6 @@ export const actions = {
           fileTypeId,
           newR2ObjectKey
         );
-        console.log("Database updated successfully");
       } else {
         // Just update metadata without changing the file
         await updateNote(

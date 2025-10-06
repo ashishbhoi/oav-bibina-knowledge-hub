@@ -5,6 +5,77 @@
 **Objective:** The SvelteKit web application on the Cloudflare ecosystem has been successfully built and deployed based
 on the technical specifications. All phases have been completed and the system is production-ready.
 
+---
+
+## **🔧 Git Commit Guidelines**
+
+When generating git commits, follow these rules:
+
+- **Format:** `[emoji] [type]: [short description]`
+- **Keep it concise:** Brief and clear, avoid verbose descriptions
+- **Use conventional commits:** `feat`, `fix`, `chore`, `docs`, `refactor`, etc.
+- **Add emoji:** Use relevant emoji at the start for visual clarity
+- **Examples:**
+  - `✨ feat: add file replacement feature`
+  - `🐛 fix: resolve CORS upload issue`
+  - `🔧 chore: update dependencies`
+  - `📝 docs: update deployment guide`
+  - `♻️ refactor: optimize database queries`
+
+---
+
+## **📝 GitHub PR Guidelines**
+
+When generating GitHub Pull Request titles and descriptions, follow these rules:
+
+### **PR Title Format:**
+
+- **Format:** `[emoji] [type]: [clear description of changes]`
+- **Use emojis:** Make it visually appealing and modern
+- **Be descriptive:** Unlike commits, PRs should be more detailed
+- **Examples:**
+  - `✨ feat: Implement file replacement system with R2 integration`
+  - `🐛 fix: Resolve CORS issues in file upload workflow`
+  - `♻️ refactor: Optimize database queries and clean up debug code`
+  - `📝 docs: Update deployment guides and API documentation`
+
+### **PR Description Format:**
+
+```markdown
+## 📋 Overview
+
+Brief summary of what this PR accomplishes
+
+## ✨ Changes
+
+- List of key changes made
+- Feature additions or bug fixes
+- Refactoring or optimizations
+
+## 🧪 Testing
+
+- How changes were tested
+- Test scenarios covered
+
+## 📸 Screenshots (if applicable)
+
+Visual proof of UI changes
+
+## 🔗 Related Issues
+
+Fixes #issue_number
+```
+
+### **Style Guidelines:**
+
+- **Use emojis** throughout to make sections visually distinct
+- **Be clear and descriptive** - this documents the change for reviewers
+- **Include context** - explain why changes were made, not just what
+- **List breaking changes** if any exist
+- **Keep it organized** with proper headings and bullet points
+
+---
+
 ## **Implementation Status Overview**
 
 ### **✅ Phase 1: Project Initialization & Setup - COMPLETE**
