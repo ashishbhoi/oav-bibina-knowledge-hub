@@ -46,16 +46,17 @@ removed from version control and must be configured separately for each environm
 
 2. **For Production Deployment**:
 
-    - Set environment variables in Cloudflare Pages dashboard
-    - Or use `wrangler secret put` for sensitive values
-    - Follow the guide in `DEPLOYMENT.md`
+   - Set environment variables in Cloudflare Pages dashboard
+   - Or use `wrangler secret put` for sensitive values
+   - Follow the guide in `DEPLOYMENT.md`
 
 3. **Security Checklist**:
-    - [ ] Generate a strong `SESSION_SECRET` (32+ random characters)
-    - [ ] Create R2 API tokens with minimal required permissions
-    - [ ] Set up proper CORS policies for R2 bucket
-    - [ ] Change default admin password after first login
-    - [ ] Enable Cloudflare security features (DDoS protection, etc.)
+   - [ ] Generate a strong `SESSION_SECRET` (32+ random characters)
+   - [ ] Create R2 API tokens with minimal required permissions
+   - [ ] **Set up proper CORS policies for R2 bucket** (`wrangler r2 bucket cors put oav-knowledge-hub-files --file=r2-cors.json`)
+   - [ ] **Restrict R2 CORS origins to production domain** (replace wildcard "\*" in `r2-cors.json`)
+   - [ ] Change default admin password after first login
+   - [ ] Enable Cloudflare security features (DDoS protection, etc.)
 
 ## Important Notes
 

@@ -10,21 +10,21 @@ on the technical specifications. All phases have been completed and the system i
 ### **✅ Phase 1: Project Initialization & Setup - COMPLETE**
 
 1. **✅ Project Initialized:**
-    - SvelteKit project created with "Skeleton project" template
-    - PNPM package manager configured and working
+   - SvelteKit project created with "Skeleton project" template
+   - PNPM package manager configured and working
 2. **✅ Dependencies Installed:**
-    - Cloudflare adapter: `@sveltejs/adapter-cloudflare` installed and configured
-    - Tailwind CSS: Complete setup with PostCSS and Autoprefixer
+   - Cloudflare adapter: `@sveltejs/adapter-cloudflare` installed and configured
+   - Tailwind CSS: Complete setup with PostCSS and Autoprefixer
 3. **✅ SvelteKit Configured for Cloudflare:**
-    - `svelte.config.js` properly configured with Cloudflare adapter
-    - Build output optimized for Cloudflare Pages deployment
+   - `svelte.config.js` properly configured with Cloudflare adapter
+   - Build output optimized for Cloudflare Pages deployment
 
 ### **✅ Phase 2: Database & Storage Setup - COMPLETE**
 
 1. **✅ Cloudflare D1 Database Schema:**
-    - Database created and schema implemented
-    - All required tables created and optimized:
-    - All required tables created and optimized:
+   - Database created and schema implemented
+   - All required tables created and optimized:
+   - All required tables created and optimized:
 
 ```sql
 -- ✅ Table for Classes (IMPLEMENTED)
@@ -73,74 +73,77 @@ CREATE TABLE Admin (
 ```
 
 2. **✅ Cloudflare R2 Storage:**
-    - R2 bucket created and configured for file storage
-    - Pre-signed URL workflows implemented for secure uploads/downloads
+   - R2 bucket created and configured for file storage
+   - Pre-signed URL workflows implemented for secure uploads/downloads
 
 ### **✅ Phase 3: Application Development - COMPLETE**
 
 1. **✅ Routing Structure:**
 
-    - Complete directory structure implemented in `/src/routes`:
-        - ✅ `/`: Homepage displaying classes in grid format
-        - ✅ `/[class_slug]/`: Subject listing pages for each class
-        - ✅ `/[class_slug]/[subject_slug]/`: Notes listing with collapsible file types
-        - ✅ `/admin`: Admin login page with authentication
-        - ✅ `/admin/dashboard`: Main admin portal with collapsible interfaces
-        - ✅ `/admin/settings`: Full CRUD management for all entities
-        - ✅ `/admin/files`: Comprehensive file management with collapsible organization
-        - ✅ `/admin/upload`: File upload with progress tracking
+   - Complete directory structure implemented in `/src/routes`:
+     - ✅ `/`: Homepage displaying classes in grid format
+     - ✅ `/[class_slug]/`: Subject listing pages for each class
+     - ✅ `/[class_slug]/[subject_slug]/`: Notes listing with collapsible file types
+     - ✅ `/admin`: Admin login page with authentication
+     - ✅ `/admin/dashboard`: Main admin portal with collapsible interfaces
+     - ✅ `/admin/settings`: Full CRUD management for all entities
+     - ✅ `/admin/files`: Comprehensive file management with collapsible organization
+     - ✅ `/admin/upload`: File upload with progress tracking
 
 2. **✅ Authentication System:**
 
-    - ✅ **Login:** Complete login form with JWT authentication and bcrypt password hashing
-    - ✅ **Session Management:** Secure HTTP-only cookies with automatic expiration
-    - ✅ **Route Protection:** Layout server protection with automatic redirects
-    - ✅ **Auto-redirect:** Logged-in users automatically redirected to dashboard
+   - ✅ **Login:** Complete login form with JWT authentication and bcrypt password hashing
+   - ✅ **Session Management:** Secure HTTP-only cookies with automatic expiration
+   - ✅ **Route Protection:** Layout server protection with automatic redirects
+   - ✅ **Auto-redirect:** Logged-in users automatically redirected to dashboard
 
 3. **✅ Public-Facing UI (Static Generation):**
 
-    - ✅ **Homepage (/):** Clean grid display of all classes from D1 database
-    - ✅ **Subjects Page:** Dynamic subject listing with responsive design
-    - ✅ **Notes Page:** File organization by type with collapsible sections
-    - ✅ **Responsive Design:** Mobile-optimized throughout
+   - ✅ **Homepage (/):** Clean grid display of all classes from D1 database
+   - ✅ **Subjects Page:** Dynamic subject listing with responsive design
+   - ✅ **Notes Page:** File organization by type with collapsible sections
+   - ✅ **Responsive Design:** Mobile-optimized throughout
 
 4. **✅ Admin Portal UI (Server-Side Rendered):**
 
-    - ✅ **Dashboard:** Complete mirror of public view with management controls
-    - ✅ **Contextual Actions:** Smart "Add" buttons with pre-populated forms
-    - ✅ **Collapsible Interfaces:** Enhanced organization throughout admin system
-    - ✅ **Settings Page:** Full CRUD operations with inline editing capabilities
-    - ✅ **File Management:** Comprehensive file browser with class/subject organization
+   - ✅ **Dashboard:** Complete mirror of public view with management controls
+   - ✅ **Contextual Actions:** Smart "Add" buttons with pre-populated forms
+   - ✅ **Collapsible Interfaces:** Enhanced organization throughout admin system
+   - ✅ **Settings Page:** Full CRUD operations with inline editing capabilities
+   - ✅ **File Management:** Comprehensive file browser with class/subject organization
 
 5. **✅ File Upload Workflow (R2 Pre-signed URLs):**
 
-    - ✅ Complete SvelteKit form actions for file upload
-    - ✅ Server-side generation of unique object keys and pre-signed URLs
-    - ✅ Client-side direct upload to R2 with progress tracking
-    - ✅ Metadata storage in D1 database after successful upload
-    - ✅ File editing capabilities (display name, categorization)
+   - ✅ Complete SvelteKit form actions for file upload
+   - ✅ Server-side generation of unique object keys and pre-signed URLs
+   - ✅ Client-side direct upload to R2 with progress tracking
+   - ✅ Metadata storage in D1 database after successful upload
+   - ✅ File editing capabilities (display name, categorization)
+   - ✅ File replacement feature with automatic old file deletion
+   - ✅ API endpoint for generating pre-signed upload URLs (`/api/upload-url`)
+   - ✅ R2 CORS configuration for direct browser uploads
 
 6. **✅ File Download Workflow:**
-    - ✅ Secure download routes with note ID validation
-    - ✅ Pre-signed download URLs with short expiry times
-    - ✅ Automatic redirect to signed URLs for browser downloads
+   - ✅ Secure download routes with note ID validation
+   - ✅ Pre-signed download URLs with short expiry times
+   - ✅ Automatic redirect to signed URLs for browser downloads
 
 ### **✅ Phase 4: Security & Deployment - COMPLETE**
 
 1. **✅ Security Hardening:**
 
-    - ✅ **Authentication:** JWT-based sessions with HTTP-only cookies
-    - ✅ **Input Validation:** Comprehensive validation and sanitization on all forms
-    - ✅ **SQL Injection Prevention:** All database queries use D1 prepared statements
-    - ✅ **Session Protection:** Secure cookie handling with automatic expiration
-    - ✅ **Route Protection:** Protected admin routes with automatic redirects
+   - ✅ **Authentication:** JWT-based sessions with HTTP-only cookies
+   - ✅ **Input Validation:** Comprehensive validation and sanitization on all forms
+   - ✅ **SQL Injection Prevention:** All database queries use D1 prepared statements
+   - ✅ **Session Protection:** Secure cookie handling with automatic expiration
+   - ✅ **Route Protection:** Protected admin routes with automatic redirects
 
 2. **✅ Deployment:**
-    - ✅ Git repository connected to Cloudflare Pages project
-    - ✅ Build command configured: `pnpm run build`
-    - ✅ Output directory set to `.svelte-kit/cloudflare`
-    - ✅ D1 database and R2 bucket bindings configured
-    - ✅ Environment variables properly set for production
+   - ✅ Git repository connected to Cloudflare Pages project
+   - ✅ Build command configured: `pnpm run build`
+   - ✅ Output directory set to `.svelte-kit/cloudflare`
+   - ✅ D1 database and R2 bucket bindings configured
+   - ✅ Environment variables properly set for production
 
 ---
 
@@ -149,10 +152,12 @@ CREATE TABLE Admin (
 ### **🎯 Core Functionality**
 
 - ✅ **Complete CRUD Operations:** Classes, Subjects, File Types, and Files
-- ✅ **File Management System:** Upload, edit, delete with progress tracking
+- ✅ **File Management System:** Upload, edit, delete, and replace with progress tracking
+- ✅ **File Replacement:** Upload new files to replace existing ones with automatic cleanup
 - ✅ **Collapsible Interfaces:** Throughout admin system for better organization
 - ✅ **Responsive Design:** Mobile-optimized across all pages
 - ✅ **Authentication System:** Secure JWT sessions with auto-redirect
+- ✅ **R2 Storage Integration:** Direct browser uploads with CORS-enabled pre-signed URLs
 
 ### **🔧 Admin Features**
 
@@ -160,6 +165,7 @@ CREATE TABLE Admin (
 - ✅ **Settings Management:** Full CRUD for all entities with inline editing
 - ✅ **File Browser:** Organized by class/subject with collapsible sections
 - ✅ **Upload System:** Drag-and-drop with progress tracking and metadata editing
+- ✅ **File Replacement:** Replace existing files with new uploads while preserving metadata
 - ✅ **Contextual Actions:** Smart forms pre-populated with current context
 
 ### **🎨 User Experience**

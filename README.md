@@ -9,13 +9,15 @@ ecosystem with D1 database and R2 storage.
 
 - 📚 **Class & Subject Management**: Complete CRUD operations with collapsible interface
 - 📁 **File Upload & Storage**: Full upload workflow with progress tracking
-- 🗂️ **File Management**: Organized file browsing with collapsible class/subject structure
+- � **File Replacement**: Replace existing files with new uploads while preserving metadata
+- �🗂️ **File Management**: Organized file browsing with collapsible class/subject structure
 - 🔐 **Admin Portal**: Secure admin interface with session management
 - 🏠 **Public Interface**: Clean public browsing of classes, subjects, and files
 - ⬇️ **File Downloads**: Secure download system with pre-signed URLs
 - 🎨 **Responsive Design**: Modern UI built with Tailwind CSS and Svelte 5
 - 🔒 **Authentication**: JWT-based sessions with bcrypt password hashing
 - ⚡ **Performance**: Optimized for Cloudflare Edge with reactive UI
+- 🌐 **CORS Configured**: R2 bucket configured for direct browser uploads
 
 ### 🎨 **Modern Architecture**
 
@@ -172,14 +174,16 @@ src/
 - **Secure Login**: JWT-based authentication with auto-redirect
 - **Dashboard**: Overview of classes, subjects, and files with quick actions
 - **File Management**:
-    - Collapsible class/subject organization
-    - Upload, edit, delete operations
-    - Progress tracking and error handling
+  - Collapsible class/subject organization
+  - Upload, edit, delete operations
+  - **File Replacement**: Upload new files to replace existing ones automatically
+  - Progress tracking and error handling
+  - Automatic old file cleanup on replacement
 - **Settings Management**:
-    - Classes: Full CRUD with collapsible interface
-    - Subjects: Organized by class with inline editing
-    - File Types: Complete management system
-    - Admin Credentials: Secure password updates
+  - Classes: Full CRUD with collapsible interface
+  - Subjects: Organized by class with inline editing
+  - File Types: Complete management system
+  - Admin Credentials: Secure password updates
 
 ### 🛡️ **Security Features**
 

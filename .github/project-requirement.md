@@ -43,9 +43,9 @@ just a few clicks.
 - **Permissions:** Can view and download all published academic materials
 - **Goal:** To quickly find and obtain study notes relevant to their class and subject
 - **Features Delivered:**
-    - Clean, responsive interface with collapsible file type sections
-    - Fast file downloads with pre-signed URLs
-    - Mobile-optimized browsing experience
+  - Clean, responsive interface with collapsible file type sections
+  - Fast file downloads with pre-signed URLs
+  - Mobile-optimized browsing experience
 
 **2.2. Administrator:**
 
@@ -53,11 +53,11 @@ just a few clicks.
 - **Permissions:** Complete Create, Read, Update, and Delete (CRUD) control over all content
 - **Goal:** To manage the platform's content, ensuring it is accurate, organized, and up-to-date
 - **Features Delivered:**
-    - Comprehensive admin dashboard with collapsible interfaces
-    - Full CRUD operations for classes, subjects, file types, and files
-    - Contextual actions with pre-populated forms
-    - Secure file upload with progress tracking
-    - Admin credential management
+  - Comprehensive admin dashboard with collapsible interfaces
+  - Full CRUD operations for classes, subjects, file types, and files
+  - Contextual actions with pre-populated forms
+  - Secure file upload with progress tracking
+  - Admin credential management
 
 ---
 
@@ -66,61 +66,63 @@ just a few clicks.
 ### **3.1. Public-Facing Portal** ✅ **COMPLETE**
 
 - **Homepage/Dashboard:**
-    - ✅ Main view displays all available classes in a visually appealing grid format
-    - ✅ Responsive design for desktop and mobile devices
+  - ✅ Main view displays all available classes in a visually appealing grid format
+  - ✅ Responsive design for desktop and mobile devices
 - **Navigation:**
-    - ✅ Clicking a **Class** leads to a page listing all associated **Subjects**
-    - ✅ Clicking a **Subject** leads to a page listing all available notes
-    - ✅ Breadcrumb navigation for easy browsing
+  - ✅ Clicking a **Class** leads to a page listing all associated **Subjects**
+  - ✅ Clicking a **Subject** leads to a page listing all available notes
+  - ✅ Breadcrumb navigation for easy browsing
 - **Note Organization:**
-    - ✅ Notes within a subject are grouped by their **File Type**
-    - ✅ Each file type section is collapsible for clean, uncluttered view
-    - ✅ Download links with file size and upload date information
+  - ✅ Notes within a subject are grouped by their **File Type**
+  - ✅ Each file type section is collapsible for clean, uncluttered view
+  - ✅ Download links with file size and upload date information
 - **Top Bar:**
-    - ✅ Website title prominently displayed in the center
-    - ✅ Clean, professional appearance
+  - ✅ Website title prominently displayed in the center
+  - ✅ Clean, professional appearance
 
 ### **3.2. Admin Portal** ✅ **COMPLETE**
 
 - **Secure Access:**
-    - ✅ Admin login page accessible at `/admin` with JWT authentication
-    - ✅ Automatic redirect to dashboard when logged in
-    - ✅ Session-based authentication with HTTP-only cookies
+  - ✅ Admin login page accessible at `/admin` with JWT authentication
+  - ✅ Automatic redirect to dashboard when logged in
+  - ✅ Session-based authentication with HTTP-only cookies
 - **Content Management (CRUD):** The administrator has full ability to:
-    - ✅ Create, rename, and delete **Classes**
-    - ✅ Create, rename, and delete **Subjects** within a class
-    - ✅ Create, rename, and delete **File Types**
-    - ✅ Collapsible interface organization for easy management
+  - ✅ Create, rename, and delete **Classes**
+  - ✅ Create, rename, and delete **Subjects** within a class
+  - ✅ Create, rename, and delete **File Types**
+  - ✅ Collapsible interface organization for easy management
 - **File Upload (CRUD):**
-    - ✅ Upload, update, and delete note files with progress tracking
-    - ✅ Upload form with **Class**, **Subject**, and **File Type** dropdown selection
-    - ✅ File metadata editing (display name, categorization)
-    - ✅ Bulk file management with collapsible class/subject organization
+  - ✅ Upload, update, and delete note files with progress tracking
+  - ✅ Upload form with **Class**, **Subject**, and **File Type** dropdown selection
+  - ✅ File metadata editing (display name, categorization)
+  - ✅ File replacement feature - upload new files to replace existing ones
+  - ✅ Automatic deletion of old files when replacing
+  - ✅ Bulk file management with collapsible class/subject organization
 - **Admin Dashboard & Navigation:**
-    - ✅ Admin dashboard mirrors the public view (Class → Subject → Notes)
-    - ✅ **Contextual Actions:** "Add" buttons at each level with pre-populated forms
-    - ✅ Collapsible interfaces throughout for better organization
+  - ✅ Admin dashboard mirrors the public view (Class → Subject → Notes)
+  - ✅ **Contextual Actions:** "Add" buttons at each level with pre-populated forms
+  - ✅ Collapsible interfaces throughout for better organization
 - **Top Bar (Admin View):**
-    - ✅ Website title on the left
-    - ✅ Buttons for "Upload", "Files", and "Settings" on the right
-    - ✅ Logout functionality
+  - ✅ Website title on the left
+  - ✅ Buttons for "Upload", "Files", and "Settings" on the right
+  - ✅ Logout functionality
 - **Settings Page:** A dedicated page for:
-    - ✅ Managing Classes, Subjects, and File Types with collapsible organization
-    - ✅ Changing admin username and password
-    - ✅ Inline editing capabilities for all entities
+  - ✅ Managing Classes, Subjects, and File Types with collapsible organization
+  - ✅ Changing admin username and password
+  - ✅ Inline editing capabilities for all entities
 
 ### **3.3. Non-Functional Requirements** ✅ **IMPLEMENTED**
 
 - **Security:**
-    - ✅ JWT-based authentication with secure session management
-    - ✅ Protected admin routes with automatic redirects
-    - ✅ Input validation and sanitization on all forms
-    - ✅ Secure file upload/download with pre-signed URLs
+  - ✅ JWT-based authentication with secure session management
+  - ✅ Protected admin routes with automatic redirects
+  - ✅ Input validation and sanitization on all forms
+  - ✅ Secure file upload/download with pre-signed URLs
 - **Usability:**
-    - ✅ Simple, intuitive, and fully responsive interface
-    - ✅ Works seamlessly on desktop and mobile devices
-    - ✅ Collapsible sections for better content organization
-    - ✅ Modern Svelte 5 architecture with TypeScript
+  - ✅ Simple, intuitive, and fully responsive interface
+  - ✅ Works seamlessly on desktop and mobile devices
+  - ✅ Collapsible sections for better content organization
+  - ✅ Modern Svelte 5 architecture with TypeScript
 
 ---
 
