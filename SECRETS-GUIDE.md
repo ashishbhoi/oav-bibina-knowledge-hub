@@ -8,8 +8,25 @@ Generate all required secrets with our automated script:
 # Generate SESSION_SECRET and create environment files
 node generate-secrets.js
 
-# This will:
-# 1. Generate a secure 64-character SESSION_SECRET
+# This **Production Security Checklist ✅**
+
+Before going live, verify:
+
+- [ ] All secrets use strong, randomly generated values
+- [ ] Database backups are configured
+- [ ] **R2 bucket has proper CORS settings configured** (`wrangler r2 bucket cors put`)
+- [ ] **R2 CORS origins restricted to production domain** (not wildcard "*")
+- [ ] Admin password is changed from default
+- [ ] JWT secret is unique and stored securely
+- [ ] All environment variables are properly set in Cloudflare Pages
+- [ ] Test file upload/download functionality
+- [ ] **Test file replacement feature** (upload new file, verify old file is deleted)
+- [ ] Verify admin authentication and session management
+- [ ] Check all CRUD operations work correctly
+- [ ] Confirm collapsible interfaces function properly
+- [ ] Test error handling and validation
+- [ ] Verify SSL certificates are working
+- [ ] Check that sensitive data is properly encryptedate a secure 64-character SESSION_SECRET
 # 2. Create .env and .dev.vars files with the secret
 # 3. Show you next steps for Cloudflare credentials
 ```
@@ -65,21 +82,23 @@ node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
 **Used by the system for**:
 
 - File upload workflow with progress tracking
+- File replacement feature (upload new files, automatically delete old ones)
 - Secure download links with pre-signed URLs
 - File management operations (edit metadata, delete files)
 - Admin file browser with collapsible interface
+- Direct browser uploads via R2 pre-signed URLs (requires CORS configuration)
 
 **Step-by-step setup**:
 
 1. **Go to API Tokens page**:
 
-    - Visit: <https://dash.cloudflare.com/profile/api-tokens>
-    - Click **"Create Token"**
+   - Visit: <https://dash.cloudflare.com/profile/api-tokens>
+   - Click **"Create Token"**
 
 2. **Create Custom Token**:
 
-    - Click **"Get started"** next to "Custom token"
-    - **Token name**: `OAV Knowledge Hub R2 Access`
+   - Click **"Get started"** next to "Custom token"
+   - **Token name**: `OAV Knowledge Hub R2 Access`
 
 3. **Set Permissions**:
 
@@ -90,9 +109,9 @@ node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
 
 4. **Create the token**:
 
-    - Click **"Continue to summary"**
-    - Click **"Create Token"**
-    - **IMPORTANT**: Copy and save the token immediately!
+   - Click **"Continue to summary"**
+   - Click **"Create Token"**
+   - **IMPORTANT**: Copy and save the token immediately!
 
 5. In your **Pages project environment variables**, add these credentials:
 
@@ -148,6 +167,9 @@ cp wrangler.jsonc.example wrangler.toml
 # 3. Initialize Cloudflare services
 npx wrangler d1 create oav-knowledge-hub-db
 npx wrangler r2 bucket create oav-knowledge-hub-files
+
+# 3a. Configure R2 CORS for file uploads (REQUIRED for file replacement feature)
+npx wrangler r2 bucket cors put oav-knowledge-hub-files --file=r2-cors.json
 
 # 4. Generate JWT secret
 node -e "console.log('JWT_SECRET=' + require('crypto').randomBytes(32).toString('hex'))"

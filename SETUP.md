@@ -18,31 +18,34 @@ A complete SvelteKit web application for organizing and sharing study materials,
 
 - ✅ **Authentication**:
 
-    - Secure login with bcrypt password hashing
-    - JWT session management with auto-expiry
-    - Automatic redirect handling for auth states
-    - Session cleanup and logout functionality
+  - Secure login with bcrypt password hashing
+  - JWT session management with auto-expiry
+  - Automatic redirect handling for auth states
+  - Session cleanup and logout functionality
 
 - ✅ **Admin Dashboard**:
 
-    - Overview cards showing total classes, subjects, and files
-    - Quick action buttons for common tasks
-    - Recent activity and statistics
-    - Navigation to all admin sections
+  - Overview cards showing total classes, subjects, and files
+  - Quick action buttons for common tasks
+  - Recent activity and statistics
+  - Navigation to all admin sections
 
 - ✅ **File Management**:
 
-    - **Collapsible Interface**: Files organized by class → subject hierarchy
-    - **Complete CRUD**: Upload, view, edit (metadata), and delete files
-    - **Upload System**: Drag & drop + file picker with progress tracking
-    - **Reactive Forms**: Dynamic subject loading based on class selection
-    - **Error Handling**: Comprehensive validation and user feedback
+  - **Collapsible Interface**: Files organized by class → subject hierarchy
+  - **Complete CRUD**: Upload, view, edit (metadata), and delete files
+  - **File Replacement**: Replace existing files with new uploads automatically
+  - **Upload System**: Drag & drop + file picker with progress tracking
+  - **Reactive Forms**: Dynamic subject loading based on class selection
+  - **Error Handling**: Comprehensive validation and user feedback
+  - **R2 Integration**: Direct browser uploads with CORS configuration
+  - **Automatic Cleanup**: Old files deleted when replaced
 
 - ✅ **Settings Management**:
-    - **Classes**: Full CRUD with collapsible organization
-    - **Subjects**: Organized by class with inline editing and contextual adding
-    - **File Types**: Complete management system
-    - **Admin Credentials**: Secure password update functionality
+  - **Classes**: Full CRUD with collapsible organization
+  - **Subjects**: Organized by class with inline editing and contextual adding
+  - **File Types**: Complete management system
+  - **Admin Credentials**: Secure password update functionality
 
 #### ⚡ **Advanced Features**
 
@@ -59,9 +62,9 @@ A complete SvelteKit web application for organizing and sharing study materials,
 
 - Node.js 18+ with pnpm
 - Cloudflare account with access to:
-    - D1 Database
-    - R2 Object Storage
-    - Pages (for deployment)
+  - D1 Database
+  - R2 Object Storage
+  - Pages (for deployment)
 
 ### 1. Environment Setup
 
@@ -243,18 +246,18 @@ pnpm run build && pnpm run preview
 
 1. **Cloudflare Pages Setup**:
 
-    - Connect your Git repository to Cloudflare Pages
-    - Set build command: `pnpm run build`
-    - Set output directory: `.svelte-kit/cloudflare`
+   - Connect your Git repository to Cloudflare Pages
+   - Set build command: `pnpm run build`
+   - Set output directory: `.svelte-kit/cloudflare`
 
 2. **Environment Variables**:
 
-    - Set in Cloudflare Pages dashboard under Settings → Environment Variables
-    - Required: `SESSION_SECRET`, `R2_ACCOUNT_ID`, `R2_ACCESS_KEY_ID`, `R2_SECRET_ACCESS_KEY`
+   - Set in Cloudflare Pages dashboard under Settings → Environment Variables
+   - Required: `SESSION_SECRET`, `R2_ACCOUNT_ID`, `R2_ACCESS_KEY_ID`, `R2_SECRET_ACCESS_KEY`
 
 3. **Resource Bindings**:
-    - Add D1 database binding: `DB` → `oav-knowledge-hub-db`
-    - Add R2 bucket binding: `BUCKET` → `oav-knowledge-hub-files`
+   - Add D1 database binding: `DB` → `oav-knowledge-hub-db`
+   - Add R2 bucket binding: `BUCKET` → `oav-knowledge-hub-files`
 
 ## 🎯 Key Features Highlights
 

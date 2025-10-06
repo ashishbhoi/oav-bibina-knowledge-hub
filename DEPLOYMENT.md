@@ -63,14 +63,14 @@ INSERT INTO FileTypes (name) VALUES ('Notes'), ('Question Papers'), ('Solutions'
 
 1. **Connect Repository**:
 
-    - Go to [Cloudflare Pages Dashboard](https://dash.cloudflare.com/pages)
-    - Click "Create a project" → "Connect to Git"
-    - Select your repository and authorize access
+   - Go to [Cloudflare Pages Dashboard](https://dash.cloudflare.com/pages)
+   - Click "Create a project" → "Connect to Git"
+   - Select your repository and authorize access
 
 2. **Configure Build Settings**:
-    - **Build command**: `pnpm run build`
-    - **Build output directory**: `.svelte-kit/cloudflare`
-    - **Root directory**: `/` (leave default)
+   - **Build command**: `pnpm run build`
+   - **Build output directory**: `.svelte-kit/cloudflare`
+   - **Root directory**: `/` (leave default)
 
 #### Option B: Direct Upload
 
@@ -109,21 +109,50 @@ wrangler pages secret put R2_ACCESS_KEY_ID --project-name=oav-knowledge-hub
 wrangler pages secret put R2_SECRET_ACCESS_KEY --project-name=oav-knowledge-hub
 ```
 
-### 5. Bind Cloudflare Resources
+### 5. Configure R2 CORS for File Uploads
+
+**IMPORTANT:** The file replacement feature requires R2 CORS configuration for direct browser uploads.
+
+```bash
+# Apply CORS configuration to R2 bucket
+wrangler r2 bucket cors put oav-knowledge-hub-files --file=r2-cors.json
+```
+
+The `r2-cors.json` file contains:
+
+```json
+[
+  {
+    "AllowedOrigins": ["*"],
+    "AllowedMethods": ["PUT", "POST", "GET"],
+    "AllowedHeaders": ["*"],
+    "ExposeHeaders": ["ETag"],
+    "MaxAgeSeconds": 3600
+  }
+]
+```
+
+**For Production:** Replace `"AllowedOrigins": ["*"]` with your specific domain(s):
+
+```json
+"AllowedOrigins": ["https://yourdomain.com", "https://www.yourdomain.com"]
+```
+
+### 6. Bind Cloudflare Resources
 
 In your **Pages project settings**:
 
 1. **Functions** → **Compatibility flags**: Add `nodejs_compat` (if needed)
 
 2. **Functions** → **Bindings**:
-    - **D1 Database**:
-        - Variable name: `DB`
-        - D1 database: `oav-knowledge-hub-db`
-    - **R2 Bucket**:
-        - Variable name: `BUCKET`
-        - R2 bucket: `oav-knowledge-hub-files`
+   - **D1 Database**:
+     - Variable name: `DB`
+     - D1 database: `oav-knowledge-hub-db`
+   - **R2 Bucket**:
+     - Variable name: `BUCKET`
+     - R2 bucket: `oav-knowledge-hub-files`
 
-### 6. Deploy and Verify
+### 7. Deploy and Verify
 
 ```bash
 # Trigger a new deployment (if using Git integration)
@@ -148,6 +177,7 @@ wrangler pages deploy .svelte-kit/cloudflare --project-name=oav-knowledge-hub
 - ✅ Login with admin credentials works
 - ✅ Dashboard shows statistics correctly
 - ✅ File upload works end-to-end
+- ✅ **File replacement works** (upload new file, old file automatically deleted)
 - ✅ Settings CRUD operations function
 - ✅ File management interface is responsive
 
@@ -214,6 +244,9 @@ export async function onRequest(context) {
 - Verify R2 API credentials are correct
 - Check bucket name matches binding configuration
 - Ensure API token has sufficient permissions
+- **Verify CORS is configured** on R2 bucket using `wrangler r2 bucket cors get oav-knowledge-hub-files`
+- Check browser console for CORS-related errors during file upload
+- Ensure `AllowedOrigins` includes your deployment domain
 
 **Session/Auth Issues**:
 
