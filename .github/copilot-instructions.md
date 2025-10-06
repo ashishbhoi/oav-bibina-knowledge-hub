@@ -5,6 +5,25 @@
 **Objective:** The SvelteKit web application on the Cloudflare ecosystem has been successfully built and deployed based
 on the technical specifications. All phases have been completed and the system is production-ready.
 
+---
+
+## **🔧 Git Commit Guidelines**
+
+When generating git commits, follow these rules:
+
+- **Format:** `[emoji] [type]: [short description]`
+- **Keep it concise:** Brief and clear, avoid verbose descriptions
+- **Use conventional commits:** `feat`, `fix`, `chore`, `docs`, `refactor`, etc.
+- **Add emoji:** Use relevant emoji at the start for visual clarity
+- **Examples:**
+  - `✨ feat: add file replacement feature`
+  - `🐛 fix: resolve CORS upload issue`
+  - `🔧 chore: update dependencies`
+  - `📝 docs: update deployment guide`
+  - `♻️ refactor: optimize database queries`
+
+---
+
 ## **Implementation Status Overview**
 
 ### **✅ Phase 1: Project Initialization & Setup - COMPLETE**
