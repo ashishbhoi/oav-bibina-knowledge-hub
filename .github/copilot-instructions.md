@@ -12,7 +12,7 @@ on the technical specifications. All phases have been completed and the system i
 When generating git commits, follow these rules:
 
 - **Format:** `[emoji] [type]: [short description]`
-- **Keep it concise:** Brief and clear, avoid verbose descriptions
+- **Keep it minimal:** Single line, one sentence only - detailed descriptions go in PR
 - **Use conventional commits:** `feat`, `fix`, `chore`, `docs`, `refactor`, etc.
 - **Add emoji:** Use relevant emoji at the start for visual clarity
 - **Examples:**
@@ -21,6 +21,9 @@ When generating git commits, follow these rules:
   - `🔧 chore: update dependencies`
   - `📝 docs: update deployment guide`
   - `♻️ refactor: optimize database queries`
+  - `🔍 seo: fix robots.txt Lighthouse validation error`
+
+**Note:** Full details, context, and explanations should be written in the Pull Request description, not in commit messages.
 
 ---
 

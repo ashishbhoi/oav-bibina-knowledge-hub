@@ -13,6 +13,15 @@
   let { data }: Props = $props();
 </script>
 
+<svelte:head>
+  <title>Dashboard | Admin | OAV Bibina Knowledge Hub</title>
+  <meta
+    name="description"
+    content="Admin dashboard for managing classes and content."
+  />
+  <meta name="robots" content="noindex, nofollow" />
+</svelte:head>
+
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
   <!-- Header -->
   <div class="mb-8">
