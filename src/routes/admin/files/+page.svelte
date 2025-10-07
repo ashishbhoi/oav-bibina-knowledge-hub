@@ -258,7 +258,12 @@
 </script>
 
 <svelte:head>
-  <title>File Management - Admin</title>
+  <title>File Management | Admin | OAV Bibina Knowledge Hub</title>
+  <meta
+    name="description"
+    content="Manage, edit, and organize academic files and study materials."
+  />
+  <meta name="robots" content="noindex, nofollow" />
 </svelte:head>
 
 <div class="min-h-screen bg-gray-50 py-8">

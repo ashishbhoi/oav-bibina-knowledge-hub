@@ -1,4 +1,46 @@
 // Database utility functions
+
+// TypeScript interfaces for documentation and type safety
+// These describe the shape of data returned from D1 database queries
+export interface Class {
+  id: number;
+  name: string;
+  created_at: string;
+}
+
+export interface Subject {
+  id: number;
+  name: string;
+  class_id: number;
+  created_at: string;
+  class_name?: string; // From JOIN queries
+}
+
+export interface FileType {
+  id: number;
+  name: string;
+  created_at: string;
+}
+
+export interface Note {
+  id: number;
+  display_name: string;
+  r2_object_key: string;
+  class_id: number;
+  subject_id: number;
+  file_type_id: number;
+  uploaded_at: string;
+  class_name?: string; // From JOIN queries
+  subject_name?: string; // From JOIN queries
+  file_type_name?: string; // From JOIN queries
+}
+
+export interface Admin {
+  id: number;
+  username: string;
+  password_hash: string;
+}
+
 export class DatabaseError extends Error {
   constructor(message: string, public cause?: Error) {
     super(message);

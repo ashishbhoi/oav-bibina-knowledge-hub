@@ -360,6 +360,15 @@
   }
 </script>
 
+<svelte:head>
+  <title>Upload File | Admin | OAV Bibina Knowledge Hub</title>
+  <meta
+    name="description"
+    content="Upload new academic files and study materials to the knowledge hub."
+  />
+  <meta name="robots" content="noindex, nofollow" />
+</svelte:head>
+
 <div class="min-h-screen bg-gray-50 py-8">
   <!-- Header -->
   <div class="mb-8">
