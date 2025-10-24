@@ -7,6 +7,29 @@ on the technical specifications. All phases have been completed and the system i
 
 ---
 
+## **✨ Code Formatting Guidelines**
+
+**IMPORTANT:** After generating or editing any code files, ALWAYS run Prettier to ensure consistent code formatting:
+
+- **Command:** `pnpm run format`
+- **When to run:**
+  - After creating new files (components, routes, utilities, etc.)
+  - After editing existing code files
+  - Before committing changes to git
+  - As part of the development workflow
+- **Why:** Maintains consistent code style across the entire codebase, improves readability, and prevents formatting-related conflicts
+
+**Workflow:**
+
+1. Generate or edit code
+2. Run `pnpm run format`
+3. Verify changes with `pnpm run format:check` (optional)
+4. Commit to git
+
+**Note:** Prettier is configured with project-specific settings in `.prettierrc` (tabs, single quotes, 100 char width, Svelte plugin enabled).
+
+---
+
 ## **🔧 Git Commit Guidelines**
 
 When generating git commits, follow these rules:
@@ -153,7 +176,6 @@ CREATE TABLE Admin (
 ### **✅ Phase 3: Application Development - COMPLETE**
 
 1. **✅ Routing Structure:**
-
    - Complete directory structure implemented in `/src/routes`:
      - ✅ `/`: Homepage displaying classes in grid format
      - ✅ `/[class_slug]/`: Subject listing pages for each class
@@ -165,21 +187,18 @@ CREATE TABLE Admin (
      - ✅ `/admin/upload`: File upload with progress tracking
 
 2. **✅ Authentication System:**
-
    - ✅ **Login:** Complete login form with JWT authentication and bcrypt password hashing
    - ✅ **Session Management:** Secure HTTP-only cookies with automatic expiration
    - ✅ **Route Protection:** Layout server protection with automatic redirects
    - ✅ **Auto-redirect:** Logged-in users automatically redirected to dashboard
 
 3. **✅ Public-Facing UI (Static Generation):**
-
    - ✅ **Homepage (/):** Clean grid display of all classes from D1 database
    - ✅ **Subjects Page:** Dynamic subject listing with responsive design
    - ✅ **Notes Page:** File organization by type with collapsible sections
    - ✅ **Responsive Design:** Mobile-optimized throughout
 
 4. **✅ Admin Portal UI (Server-Side Rendered):**
-
    - ✅ **Dashboard:** Complete mirror of public view with management controls
    - ✅ **Contextual Actions:** Smart "Add" buttons with pre-populated forms
    - ✅ **Collapsible Interfaces:** Enhanced organization throughout admin system
@@ -187,7 +206,6 @@ CREATE TABLE Admin (
    - ✅ **File Management:** Comprehensive file browser with class/subject organization
 
 5. **✅ File Upload Workflow (R2 Pre-signed URLs):**
-
    - ✅ Complete SvelteKit form actions for file upload
    - ✅ Server-side generation of unique object keys and pre-signed URLs
    - ✅ Client-side direct upload to R2 with progress tracking
@@ -205,7 +223,6 @@ CREATE TABLE Admin (
 ### **✅ Phase 4: Security & Deployment - COMPLETE**
 
 1. **✅ Security Hardening:**
-
    - ✅ **Authentication:** JWT-based sessions with HTTP-only cookies
    - ✅ **Input Validation:** Comprehensive validation and sanitization on all forms
    - ✅ **SQL Injection Prevention:** All database queries use D1 prepared statements

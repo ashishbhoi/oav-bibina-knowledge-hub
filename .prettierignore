@@ -1,0 +1,23 @@
+# Dependencies
+node_modules
+pnpm-lock.yaml
+
+# Build outputs
+.svelte-kit
+build
+dist
+.wrangler
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# Cache
+.DS_Store
+.turbo
+*.log
+
+# Generated files
+package-lock.json
+yarn.lock

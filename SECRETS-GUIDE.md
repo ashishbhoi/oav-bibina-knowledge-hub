@@ -91,12 +91,10 @@ node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
 **Step-by-step setup**:
 
 1. **Go to API Tokens page**:
-
    - Visit: <https://dash.cloudflare.com/profile/api-tokens>
    - Click **"Create Token"**
 
 2. **Create Custom Token**:
-
    - Click **"Get started"** next to "Custom token"
    - **Token name**: `OAV Knowledge Hub R2 Access`
 
@@ -108,7 +106,6 @@ node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
    ```
 
 4. **Create the token**:
-
    - Click **"Continue to summary"**
    - Click **"Create Token"**
    - **IMPORTANT**: Copy and save the token immediately!

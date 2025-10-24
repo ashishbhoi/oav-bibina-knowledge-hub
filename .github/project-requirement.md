@@ -7,6 +7,19 @@ It focuses on **what** the platform does and **why**, serving as a guide for sta
 
 ---
 
+## **✨ Development Workflow**
+
+**Code Formatting:** All code must be formatted with Prettier before committing:
+
+- **Command:** `pnpm run format`
+- **When to run:**
+  - After creating or editing any code files
+  - Before committing changes to git
+  - As part of the development workflow
+- **Configuration:** Project uses tabs, single quotes, 100 char width, Svelte plugin enabled
+
+---
+
 ### **1. Project Vision**
 
 **1.1. Project Title:** OAV Bibina Knowledge Hub
