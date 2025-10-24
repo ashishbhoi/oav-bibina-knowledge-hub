@@ -137,7 +137,7 @@ export const actions: Actions = {
       return {
         success: true,
         uploadUrl,
-        objectKey: key,
+        key: key,
       };
     } catch (error) {
       console.error("Generate upload URL error:", error);
