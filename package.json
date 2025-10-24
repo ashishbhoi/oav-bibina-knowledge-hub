@@ -1,58 +1,62 @@
 {
-  "name": "oav-bibina-knowledge-hub",
-  "private": true,
-  "version": "1.0.3",
-  "description": "Knowledge hub for OAV Bibina",
-  "author": "Ashish Kumar Bhoi",
-  "license": "GPL-3.0-only",
-  "keywords": [
-    "sveltekit",
-    "cloudflare",
-    "tailwindcss",
-    "typescript",
-    "pnpm",
-    "Education",
-    "Knowledge Hub"
-  ],
-  "type": "module",
-  "scripts": {
-    "dev": "pnpm run build && wrangler dev",
-    "dev:vite": "vite dev",
-    "build": "vite build",
-    "preview": "pnpm run build && wrangler dev",
-    "prepare": "svelte-kit sync || echo ''",
-    "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
-    "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
-    "deploy": "pnpm run build && wrangler deploy",
-    "cf-typegen": "wrangler types ./src/worker-configuration.d.ts"
-  },
-  "devDependencies": {
-    "@sveltejs/adapter-auto": "^6.1.1",
-    "@sveltejs/adapter-cloudflare": "^7.2.4",
-    "@sveltejs/kit": "^2.44.0",
-    "@sveltejs/vite-plugin-svelte": "^6.2.1",
-    "@types/node": "^24.7.0",
-    "@types/uuid": "^10.0.0",
-    "autoprefixer": "^10.4.21",
-    "postcss": "^8.5.6",
-    "svelte": "^5.39.9",
-    "svelte-check": "^4.3.2",
-    "tailwindcss": "^3.4.17",
-    "typescript": "^5.9.3",
-    "vite": "^7.1.9",
-    "wrangler": "^4.42.0"
-  },
-  "pnpm": {
-    "onlyBuiltDependencies": [
-      "esbuild"
-    ]
-  },
-  "dependencies": {
-    "@aws-sdk/client-s3": "^3.883.0",
-    "@aws-sdk/s3-request-presigner": "^3.883.0",
-    "bcryptjs": "^3.0.2",
-    "jose": "^6.1.0",
-    "uuid": "^12.0.0",
-    "zod": "^4.1.12"
-  }
+	"name": "oav-bibina-knowledge-hub",
+	"private": true,
+	"version": "1.0.3",
+	"description": "Knowledge hub for OAV Bibina",
+	"author": "Ashish Kumar Bhoi",
+	"license": "GPL-3.0-only",
+	"keywords": [
+		"sveltekit",
+		"cloudflare",
+		"tailwindcss",
+		"typescript",
+		"pnpm",
+		"Education",
+		"Knowledge Hub"
+	],
+	"type": "module",
+	"scripts": {
+		"dev": "pnpm run build && wrangler dev",
+		"dev:vite": "vite dev",
+		"build": "vite build",
+		"preview": "pnpm run build && wrangler dev",
+		"prepare": "svelte-kit sync || echo ''",
+		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
+		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
+		"deploy": "pnpm run build && wrangler deploy",
+		"cf-typegen": "wrangler types ./src/worker-configuration.d.ts",
+		"format": "prettier --write .",
+		"format:check": "prettier --check ."
+	},
+	"devDependencies": {
+		"@sveltejs/adapter-auto": "^6.1.1",
+		"@sveltejs/adapter-cloudflare": "^7.2.4",
+		"@sveltejs/kit": "^2.44.0",
+		"@sveltejs/vite-plugin-svelte": "^6.2.1",
+		"@types/node": "^24.7.0",
+		"@types/uuid": "^10.0.0",
+		"autoprefixer": "^10.4.21",
+		"postcss": "^8.5.6",
+		"prettier": "^3.6.2",
+		"prettier-plugin-svelte": "^3.4.0",
+		"svelte": "^5.39.9",
+		"svelte-check": "^4.3.2",
+		"tailwindcss": "^3.4.17",
+		"typescript": "^5.9.3",
+		"vite": "^7.1.9",
+		"wrangler": "^4.42.0"
+	},
+	"pnpm": {
+		"onlyBuiltDependencies": [
+			"esbuild"
+		]
+	},
+	"dependencies": {
+		"@aws-sdk/client-s3": "^3.883.0",
+		"@aws-sdk/s3-request-presigner": "^3.883.0",
+		"bcryptjs": "^3.0.2",
+		"jose": "^6.1.0",
+		"uuid": "^12.0.0",
+		"zod": "^4.1.12"
+	}
 }

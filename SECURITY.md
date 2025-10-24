@@ -45,7 +45,6 @@ removed from version control and must be configured separately for each environm
    ```
 
 2. **For Production Deployment**:
-
    - Set environment variables in Cloudflare Pages dashboard
    - Or use `wrangler secret put` for sensitive values
    - Follow the guide in `DEPLOYMENT.md`

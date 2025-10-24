@@ -62,7 +62,6 @@ INSERT INTO FileTypes (name) VALUES ('Notes'), ('Question Papers'), ('Solutions'
 #### Option A: GitHub Integration (Recommended)
 
 1. **Connect Repository**:
-
    - Go to [Cloudflare Pages Dashboard](https://dash.cloudflare.com/pages)
    - Click "Create a project" → "Connect to Git"
    - Select your repository and authorize access
@@ -122,13 +121,13 @@ The `r2-cors.json` file contains:
 
 ```json
 [
-  {
-    "AllowedOrigins": ["*"],
-    "AllowedMethods": ["PUT", "POST", "GET"],
-    "AllowedHeaders": ["*"],
-    "ExposeHeaders": ["ETag"],
-    "MaxAgeSeconds": 3600
-  }
+	{
+		"AllowedOrigins": ["*"],
+		"AllowedMethods": ["PUT", "POST", "GET"],
+		"AllowedHeaders": ["*"],
+		"ExposeHeaders": ["ETag"],
+		"MaxAgeSeconds": 3600
+	}
 ]
 ```
 
@@ -201,8 +200,8 @@ wrangler pages deploy .svelte-kit/cloudflare --project-name=oav-knowledge-hub
 ```jsonc
 // wrangler.jsonc - Add compatibility date for latest features
 {
-  "compatibility_date": "2024-03-08",
-  "compatibility_flags": ["nodejs_compat"]
+	"compatibility_date": "2024-03-08",
+	"compatibility_flags": ["nodejs_compat"],
 }
 ```
 
@@ -213,13 +212,13 @@ Add to your Pages project:
 ```javascript
 // functions/_middleware.js
 export async function onRequest(context) {
-  const response = await context.next();
+	const response = await context.next();
 
-  response.headers.set("X-Frame-Options", "DENY");
-  response.headers.set("X-Content-Type-Options", "nosniff");
-  response.headers.set("Referrer-Policy", "strict-origin-when-cross-origin");
+	response.headers.set('X-Frame-Options', 'DENY');
+	response.headers.set('X-Content-Type-Options', 'nosniff');
+	response.headers.set('Referrer-Policy', 'strict-origin-when-cross-origin');
 
-  return response;
+	return response;
 }
 ```
 

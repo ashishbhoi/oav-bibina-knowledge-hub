@@ -1,195 +1,180 @@
-import type { Actions, PageServerLoad } from "./$types";
-import {
-  createNote,
-  getClasses,
-  getFileTypes,
-  getSubjectsByClassId,
-} from "$lib/server/db";
-import { fail, json } from "@sveltejs/kit";
-import { z } from "zod";
-import { v4 as uuidv4 } from "uuid";
-import {
-  createR2Client,
-  generateUploadUrl,
-  getFileExtension,
-} from "$lib/server/r2";
+import type { Actions, PageServerLoad } from './$types';
+import { createNote, getClasses, getFileTypes, getSubjectsByClassId } from '$lib/server/db';
+import { fail, json } from '@sveltejs/kit';
+import { z } from 'zod';
+import { v4 as uuidv4 } from 'uuid';
+import { createR2Client, generateUploadUrl, getFileExtension } from '$lib/server/r2';
 
 const uploadSchema = z.object({
-  display_name: z
-    .string()
-    .min(1, "File name is required")
-    .max(255, "File name too long"),
-  class_id: z.string().transform((val) => parseInt(val, 10)),
-  subject_id: z.string().transform((val) => parseInt(val, 10)),
-  file_type_id: z.string().transform((val) => parseInt(val, 10)),
-  file_name: z.string().min(1, "Original file name is required"),
-  file_size: z.string().transform((val) => parseInt(val, 10)),
+	display_name: z.string().min(1, 'File name is required').max(255, 'File name too long'),
+	class_id: z.string().transform((val) => parseInt(val, 10)),
+	subject_id: z.string().transform((val) => parseInt(val, 10)),
+	file_type_id: z.string().transform((val) => parseInt(val, 10)),
+	file_name: z.string().min(1, 'Original file name is required'),
+	file_size: z.string().transform((val) => parseInt(val, 10)),
 });
 
 export const load: PageServerLoad = async ({ platform, url }) => {
-  if (!platform?.env?.DB) {
-    throw new Error("Database not available");
-  }
+	if (!platform?.env?.DB) {
+		throw new Error('Database not available');
+	}
 
-  try {
-    const [classes, fileTypes] = await Promise.all([
-      getClasses(platform.env.DB),
-      getFileTypes(platform.env.DB),
-    ]);
+	try {
+		const [classes, fileTypes] = await Promise.all([
+			getClasses(platform.env.DB),
+			getFileTypes(platform.env.DB),
+		]);
 
-    // Get pre-selected values from URL params
-    const preselected = {
-      classId: url.searchParams.get("class_id"),
-      subjectId: url.searchParams.get("subject_id"),
-      fileTypeId: url.searchParams.get("file_type_id"),
-    };
+		// Get pre-selected values from URL params
+		const preselected = {
+			classId: url.searchParams.get('class_id'),
+			subjectId: url.searchParams.get('subject_id'),
+			fileTypeId: url.searchParams.get('file_type_id'),
+		};
 
-    // If a class is preselected, fetch its subjects
-    let preselectedSubjects: any[] = [];
-    if (preselected.classId) {
-      try {
-        preselectedSubjects = await getSubjectsByClassId(
-          platform.env.DB,
-          parseInt(preselected.classId, 10)
-        );
-      } catch (error) {
-        console.error("Failed to fetch preselected subjects:", error);
-      }
-    }
+		// If a class is preselected, fetch its subjects
+		let preselectedSubjects: any[] = [];
+		if (preselected.classId) {
+			try {
+				preselectedSubjects = await getSubjectsByClassId(
+					platform.env.DB,
+					parseInt(preselected.classId, 10)
+				);
+			} catch (error) {
+				console.error('Failed to fetch preselected subjects:', error);
+			}
+		}
 
-    return {
-      classes,
-      fileTypes,
-      preselected,
-      preselectedSubjects,
-    };
-  } catch (error) {
-    console.error("Failed to load upload data:", error);
-    throw new Error("Failed to load upload page");
-  }
+		return {
+			classes,
+			fileTypes,
+			preselected,
+			preselectedSubjects,
+		};
+	} catch (error) {
+		console.error('Failed to load upload data:', error);
+		throw new Error('Failed to load upload page');
+	}
 };
 
 export const actions: Actions = {
-  getSubjects: async ({ request, platform }) => {
-    if (!platform?.env?.DB) {
-      return fail(500, { message: "Database not available" });
-    }
+	getSubjects: async ({ request, platform }) => {
+		if (!platform?.env?.DB) {
+			return fail(500, { message: 'Database not available' });
+		}
 
-    try {
-      const formData = await request.formData();
-      const classId = parseInt(formData.get("class_id")?.toString() || "0", 10);
+		try {
+			const formData = await request.formData();
+			const classId = parseInt(formData.get('class_id')?.toString() || '0', 10);
 
-      if (!classId) {
-        return { subjects: [] };
-      }
+			if (!classId) {
+				return { subjects: [] };
+			}
 
-      const subjects = await getSubjectsByClassId(platform.env.DB, classId);
-      return { subjects };
-    } catch (error) {
-      console.error("Get subjects error:", error);
-      return fail(500, { message: "Failed to fetch subjects" });
-    }
-  },
+			const subjects = await getSubjectsByClassId(platform.env.DB, classId);
+			return { subjects };
+		} catch (error) {
+			console.error('Get subjects error:', error);
+			return fail(500, { message: 'Failed to fetch subjects' });
+		}
+	},
 
-  generateUploadUrl: async ({ request, platform }) => {
-    if (
-      !platform?.env?.R2_ACCOUNT_ID ||
-      !platform?.env?.R2_ACCESS_KEY_ID ||
-      !platform?.env?.R2_SECRET_ACCESS_KEY
-    ) {
-      return fail(500, { message: "R2 credentials not available" });
-    }
+	generateUploadUrl: async ({ request, platform }) => {
+		if (
+			!platform?.env?.R2_ACCOUNT_ID ||
+			!platform?.env?.R2_ACCESS_KEY_ID ||
+			!platform?.env?.R2_SECRET_ACCESS_KEY
+		) {
+			return fail(500, { message: 'R2 credentials not available' });
+		}
 
-    try {
-      const formData = await request.formData();
-      const fileName = formData.get("file_name")?.toString();
-      const fileSize = parseInt(
-        formData.get("file_size")?.toString() || "0",
-        10
-      );
+		try {
+			const formData = await request.formData();
+			const fileName = formData.get('file_name')?.toString();
+			const fileSize = parseInt(formData.get('file_size')?.toString() || '0', 10);
 
-      if (!fileName) {
-        return fail(400, { message: "File name is required" });
-      }
+			if (!fileName) {
+				return fail(400, { message: 'File name is required' });
+			}
 
-      if (fileSize > 10 * 1024 * 1024) {
-        // 10MB limit
-        return fail(400, { message: "File size too large (max 10MB)" });
-      }
+			if (fileSize > 10 * 1024 * 1024) {
+				// 10MB limit
+				return fail(400, { message: 'File size too large (max 10MB)' });
+			}
 
-      // Create R2 client
-      const r2Client = createR2Client(
-        platform.env.R2_ACCOUNT_ID,
-        platform.env.R2_ACCESS_KEY_ID,
-        platform.env.R2_SECRET_ACCESS_KEY
-      );
+			// Create R2 client
+			const r2Client = createR2Client(
+				platform.env.R2_ACCOUNT_ID,
+				platform.env.R2_ACCESS_KEY_ID,
+				platform.env.R2_SECRET_ACCESS_KEY
+			);
 
-      // Get file extension
-      const fileExtension = getFileExtension(fileName);
+			// Get file extension
+			const fileExtension = getFileExtension(fileName);
 
-      // Generate pre-signed upload URL
-      const { key, uploadUrl } = await generateUploadUrl(
-        r2Client,
-        "oav-knowledge-hub-files",
-        fileExtension
-      );
+			// Generate pre-signed upload URL
+			const { key, uploadUrl } = await generateUploadUrl(
+				r2Client,
+				'oav-knowledge-hub-files',
+				fileExtension
+			);
 
-      return {
-        success: true,
-        uploadUrl,
-        key: key,
-      };
-    } catch (error) {
-      console.error("Generate upload URL error:", error);
-      return fail(500, { message: "Failed to generate upload URL" });
-    }
-  },
+			return {
+				success: true,
+				uploadUrl,
+				key: key,
+			};
+		} catch (error) {
+			console.error('Generate upload URL error:', error);
+			return fail(500, { message: 'Failed to generate upload URL' });
+		}
+	},
 
-  saveFileMetadata: async ({ request, platform }) => {
-    if (!platform?.env?.DB) {
-      return fail(500, { message: "Database not available" });
-    }
+	saveFileMetadata: async ({ request, platform }) => {
+		if (!platform?.env?.DB) {
+			return fail(500, { message: 'Database not available' });
+		}
 
-    try {
-      const formData = await request.formData();
-      const data = {
-        display_name: formData.get("display_name")?.toString() || "",
-        class_id: formData.get("class_id")?.toString() || "",
-        subject_id: formData.get("subject_id")?.toString() || "",
-        file_type_id: formData.get("file_type_id")?.toString() || "",
-        file_name: formData.get("file_name")?.toString() || "",
-        file_size: formData.get("file_size")?.toString() || "",
-        object_key: formData.get("object_key")?.toString() || "",
-      };
+		try {
+			const formData = await request.formData();
+			const data = {
+				display_name: formData.get('display_name')?.toString() || '',
+				class_id: formData.get('class_id')?.toString() || '',
+				subject_id: formData.get('subject_id')?.toString() || '',
+				file_type_id: formData.get('file_type_id')?.toString() || '',
+				file_name: formData.get('file_name')?.toString() || '',
+				file_size: formData.get('file_size')?.toString() || '',
+				object_key: formData.get('object_key')?.toString() || '',
+			};
 
-      const validation = uploadSchema.safeParse(data);
-      if (!validation.success) {
-        return fail(400, {
-          message: validation.error.issues[0].message,
-        });
-      }
+			const validation = uploadSchema.safeParse(data);
+			if (!validation.success) {
+				return fail(400, {
+					message: validation.error.issues[0].message,
+				});
+			}
 
-      if (!data.object_key) {
-        return fail(400, { message: "Object key is required" });
-      }
+			if (!data.object_key) {
+				return fail(400, { message: 'Object key is required' });
+			}
 
-      // Save to database
-      await createNote(
-        platform.env.DB,
-        validation.data.display_name,
-        data.object_key,
-        validation.data.class_id,
-        validation.data.subject_id,
-        validation.data.file_type_id
-      );
+			// Save to database
+			await createNote(
+				platform.env.DB,
+				validation.data.display_name,
+				data.object_key,
+				validation.data.class_id,
+				validation.data.subject_id,
+				validation.data.file_type_id
+			);
 
-      return {
-        success: true,
-        message: "File uploaded successfully!",
-      };
-    } catch (error) {
-      console.error("Save file metadata error:", error);
-      return fail(500, { message: "Failed to save file information" });
-    }
-  },
+			return {
+				success: true,
+				message: 'File uploaded successfully!',
+			};
+		} catch (error) {
+			console.error('Save file metadata error:', error);
+			return fail(500, { message: 'Failed to save file information' });
+		}
+	},
 };
