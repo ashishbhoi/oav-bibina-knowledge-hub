@@ -246,9 +246,21 @@
 									class="flex items-center p-4 rounded-2xl bg-gray-50 dark:bg-gray-700/50 hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors group border border-transparent hover:border-brand-blue"
 								>
 									<div
-										class="w-12 h-12 rounded-xl {icon.bg} flex items-center justify-center {icon.color} mr-4 shadow-sm group-hover:scale-110 transition-transform"
+										class="w-12 h-12 rounded-xl {icon.bg} dark:bg-opacity-30 flex items-center justify-center mr-4 shadow-sm group-hover:scale-110 transition-transform"
 									>
-										<i class="fas {icon.path} text-xl"></i>
+										<svg
+											class="w-6 h-6 {icon.color} dark:text-opacity-90"
+											fill="none"
+											stroke="currentColor"
+											viewBox="0 0 24 24"
+										>
+											<path
+												stroke-linecap="round"
+												stroke-linejoin="round"
+												stroke-width="2"
+												d={icon.path}
+											/>
+										</svg>
 									</div>
 									<div class="flex-1 min-w-0">
 										<h3

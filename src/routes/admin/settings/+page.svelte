@@ -218,9 +218,11 @@
 								isLoading = false;
 							};
 						}}
-						class="mb-8 p-6 bg-gray-50 border border-gray-200 rounded-xl"
+						class="mb-8 p-6 bg-gray-50 border border-gray-200 rounded-xl dark:bg-gray-700/50 dark:border-gray-600"
 					>
-						<h3 class="text-sm font-semibold text-gray-900 mb-4 uppercase tracking-wider">
+						<h3
+							class="text-sm font-semibold text-gray-900 mb-4 uppercase tracking-wider dark:text-white"
+						>
 							Add New Class
 						</h3>
 						<div class="flex gap-4">
@@ -234,7 +236,7 @@
 							<button
 								type="submit"
 								disabled={isLoading}
-								class="bg-brand-blue text-white px-6 py-2.5 rounded-lg hover:bg-blue-700 disabled:opacity-50 transition-colors font-medium shadow-sm"
+								class="bg-brand-blue text-white px-6 py-2.5 rounded-lg hover:bg-blue-700 disabled:opacity-50 transition-colors font-medium shadow-sm dark:bg-blue-600 dark:hover:bg-blue-700"
 							>
 								{isLoading ? 'Adding...' : 'Add Class'}
 							</button>
@@ -388,9 +390,11 @@
 								isLoading = false;
 							};
 						}}
-						class="mb-8 p-6 bg-gray-50 border border-gray-200 rounded-xl"
+						class="mb-8 p-6 bg-gray-50 border border-gray-200 rounded-xl dark:bg-gray-700/50 dark:border-gray-600"
 					>
-						<h3 class="text-sm font-semibold text-gray-900 mb-4 uppercase tracking-wider">
+						<h3
+							class="text-sm font-semibold text-gray-900 mb-4 uppercase tracking-wider dark:text-white"
+						>
 							Add New File Type
 						</h3>
 						<div class="flex gap-4">
@@ -399,12 +403,12 @@
 								name="name"
 								placeholder="File type name (e.g., PDF, Word Document)"
 								required
-								class="flex-1 border border-gray-300 rounded-lg px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-brand-blue/20 focus:border-brand-blue transition-all"
+								class="flex-1 border border-gray-300 rounded-lg px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-brand-blue/20 focus:border-brand-blue transition-all dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
 							/>
 							<button
 								type="submit"
 								disabled={isLoading}
-								class="bg-brand-blue text-white px-6 py-2.5 rounded-lg hover:bg-blue-700 disabled:opacity-50 transition-colors font-medium shadow-sm"
+								class="bg-brand-blue text-white px-6 py-2.5 rounded-lg hover:bg-blue-700 disabled:opacity-50 transition-colors font-medium shadow-sm dark:bg-blue-600 dark:hover:bg-blue-700"
 							>
 								{isLoading ? 'Adding...' : 'Add Type'}
 							</button>
