@@ -1,3 +1,17 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body {
+	font-family: 'Outfit', sans-serif;
+	@apply text-gray-800 bg-gray-50 dark:bg-gray-900 dark:text-gray-100;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-family: 'Fredoka', sans-serif;
+}

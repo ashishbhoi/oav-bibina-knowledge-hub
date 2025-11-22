@@ -258,17 +258,19 @@
 	<meta name="robots" content="noindex, nofollow" />
 </svelte:head>
 
-<div class="min-h-screen bg-gray-50 py-8">
+<div class="min-h-screen bg-gray-50 dark:bg-gray-900 py-8">
 	<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 		<!-- Header -->
 		<div class="mb-8">
 			<div class="flex justify-between items-center">
 				<div>
-					<h1 class="text-3xl font-bold text-gray-900">File Management</h1>
-					<p class="mt-2 text-gray-600">Manage uploaded files and their properties</p>
+					<h1 class="text-3xl font-bold text-gray-900 dark:text-white">File Management</h1>
+					<p class="mt-2 text-gray-600 dark:text-gray-400">
+						Manage uploaded files and their properties
+					</p>
 				</div>
 				<a
-					class="bg-gray-600 text-white px-4 py-2 rounded-lg hover:bg-gray-700 transition-colors"
+					class="bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-200 px-4 py-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors font-medium"
 					href="/admin/dashboard"
 				>
 					← Back to Dashboard
@@ -277,14 +279,18 @@
 		</div>
 
 		<!-- Files Organization -->
-		<div class="bg-white shadow rounded-lg overflow-hidden">
-			<div class="px-6 py-4 border-b border-gray-200">
+		<div
+			class="bg-white dark:bg-gray-800 shadow-sm border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden"
+		>
+			<div
+				class="px-6 py-4 border-b border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/50"
+			>
 				<div class="flex items-center justify-between">
-					<h2 class="text-xl font-semibold text-gray-900">
+					<h2 class="text-lg font-semibold text-gray-900 dark:text-white">
 						All Files ({data.notes.length})
 					</h2>
 					<a
-						class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm font-medium"
+						class="bg-brand-blue hover:bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors shadow-sm"
 						href="/admin/upload"
 					>
 						Upload New File
@@ -293,47 +299,58 @@
 			</div>
 
 			{#if groupedFiles.length > 0}
-				<div class="divide-y divide-gray-200">
+				<div class="divide-y divide-gray-100 dark:divide-gray-700">
 					{#each groupedFiles as cls}
 						<!-- Class Header -->
-						<div class="px-6 py-4">
+						<div class="bg-white dark:bg-gray-800">
 							<button
 								type="button"
 								onclick={() => toggleClass(cls.id)}
-								class="flex items-center justify-between w-full text-left focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-inset rounded-md p-2 hover:bg-gray-50"
+								class="flex items-center justify-between w-full text-left px-6 py-4 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors focus:outline-none"
 							>
 								<div class="flex items-center">
-									<svg
-										class="w-5 h-5 text-gray-400 mr-2 transform transition-transform duration-200 {expandedClasses.has(
-											cls.id
-										)
-											? 'rotate-90'
-											: ''}"
-										fill="none"
-										stroke="currentColor"
-										viewBox="0 0 24 24"
+									<div
+										class="w-8 h-8 bg-blue-50 dark:bg-blue-900/20 rounded-lg flex items-center justify-center mr-3 text-brand-blue dark:text-blue-400"
 									>
-										<path
-											stroke-linecap="round"
-											stroke-linejoin="round"
-											stroke-width="2"
-											d="M9 5l7 7-7 7"
-										/>
-									</svg>
-									<span class="text-lg font-semibold text-gray-900">{cls.name}</span>
-									<span class="ml-2 text-sm text-gray-500">({cls.totalFiles} files)</span>
+										<svg
+											class="w-5 h-5 transform transition-transform duration-200 {expandedClasses.has(
+												cls.id
+											)
+												? 'rotate-90'
+												: ''}"
+											fill="none"
+											stroke="currentColor"
+											viewBox="0 0 24 24"
+										>
+											<path
+												stroke-linecap="round"
+												stroke-linejoin="round"
+												stroke-width="2"
+												d="M9 5l7 7-7 7"
+											/>
+										</svg>
+									</div>
+									<span class="text-lg font-semibold text-gray-900 dark:text-white">{cls.name}</span
+									>
+									<span
+										class="ml-3 px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200"
+									>
+										{cls.totalFiles} files
+									</span>
 								</div>
 							</button>
 
 							{#if expandedClasses.has(cls.id)}
-								<div class="mt-4 ml-7">
+								<div
+									class="border-t border-gray-100 dark:border-gray-700 bg-gray-50/50 dark:bg-gray-900/50"
+								>
 									{#each cls.subjects as subject}
 										<!-- Subject Header -->
-										<div class="mb-4">
+										<div class="border-b border-gray-100 dark:border-gray-700 last:border-0">
 											<button
 												type="button"
 												onclick={() => toggleSubject(cls.id, subject.id)}
-												class="flex items-center justify-between w-full text-left focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-inset rounded-md p-2 hover:bg-gray-50"
+												class="flex items-center justify-between w-full text-left px-6 py-3 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors focus:outline-none pl-16"
 											>
 												<div class="flex items-center">
 													<svg
@@ -353,52 +370,126 @@
 															d="M9 5l7 7-7 7"
 														/>
 													</svg>
-													<span class="text-md font-medium text-gray-800">{subject.name}</span>
-													<span class="ml-2 text-sm text-gray-500"
-														>({subject.files.length} files)</span
+													<span class="text-md font-medium text-gray-800 dark:text-gray-200"
+														>{subject.name}</span
+													>
+													<span class="ml-2 text-sm text-gray-500 dark:text-gray-400"
+														>({subject.files.length})</span
 													>
 												</div>
 											</button>
 
 											{#if expandedSubjects.has(`${cls.id}-${subject.id}`)}
-												<div class="mt-3 ml-6">
+												<div class="px-6 pb-4 pl-16">
 													<!-- Files Table -->
-													<div class="overflow-x-auto rounded-lg border border-gray-200">
-														<table class="min-w-full divide-y divide-gray-200">
-															<thead class="bg-gray-50">
+													<div
+														class="overflow-hidden shadow ring-1 ring-black ring-opacity-5 rounded-lg bg-white dark:bg-gray-800"
+													>
+														<table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+															<thead class="bg-gray-50 dark:bg-gray-700">
 																<tr>
 																	<th
-																		class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+																		scope="col"
+																		class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider"
+																		>File Name</th
 																	>
-																		File Name
-																	</th>
 																	<th
-																		class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+																		scope="col"
+																		class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider"
+																		>Type</th
 																	>
-																		Type
-																	</th>
 																	<th
-																		class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+																		scope="col"
+																		class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider"
+																		>Uploaded</th
 																	>
-																		Uploaded
-																	</th>
-																	<th
-																		class="px-4 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider"
+																	<th scope="col" class="relative px-6 py-3"
+																		><span class="sr-only">Actions</span></th
 																	>
-																		Actions
-																	</th>
 																</tr>
 															</thead>
-															<tbody class="bg-white divide-y divide-gray-200">
+															<tbody
+																class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700"
+															>
 																{#each subject.files as file}
-																	<tr class="hover:bg-gray-50">
-																		<td class="px-4 py-3 whitespace-nowrap">
+																	<tr
+																		class="hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
+																	>
+																		<td class="px-6 py-4 whitespace-nowrap">
 																			<div class="flex items-center">
 																				<div
-																					class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center mr-3"
+																					class="flex-shrink-0 h-10 w-10 rounded-lg flex items-center justify-center text-lg shadow-sm
+																					{file.file_type_name.toLowerCase().includes('pdf')
+																						? 'bg-red-100 text-red-600 dark:bg-red-900/30 dark:text-red-400'
+																						: file.file_type_name.toLowerCase().includes('doc')
+																							? 'bg-blue-100 text-blue-600 dark:bg-blue-900/30 dark:text-blue-400'
+																							: file.file_type_name.toLowerCase().includes('ppt')
+																								? 'bg-orange-100 text-orange-600 dark:bg-orange-900/30 dark:text-orange-400'
+																								: file.file_type_name.toLowerCase().includes('xls')
+																									? 'bg-green-100 text-green-600 dark:bg-green-900/30 dark:text-green-400'
+																									: file.file_type_name
+																												.toLowerCase()
+																												.includes('image')
+																										? 'bg-purple-100 text-purple-600 dark:bg-purple-900/30 dark:text-purple-400'
+																										: 'bg-gray-100 text-gray-600 dark:bg-gray-700 dark:text-gray-400'}"
+																				>
+																					{#if file.file_type_name.toLowerCase().includes('pdf')}
+																						<i class="fas fa-file-pdf"></i>
+																					{:else if file.file_type_name
+																						.toLowerCase()
+																						.includes('doc')}
+																						<i class="fas fa-file-word"></i>
+																					{:else if file.file_type_name
+																						.toLowerCase()
+																						.includes('ppt')}
+																						<i class="fas fa-file-powerpoint"></i>
+																					{:else if file.file_type_name
+																						.toLowerCase()
+																						.includes('xls')}
+																						<i class="fas fa-file-excel"></i>
+																					{:else if file.file_type_name
+																						.toLowerCase()
+																						.includes('image')}
+																						<i class="fas fa-file-image"></i>
+																					{:else}
+																						<i class="fas fa-file"></i>
+																					{/if}
+																				</div>
+																				<div class="ml-4">
+																					<div
+																						class="text-sm font-medium text-gray-900 dark:text-white"
+																					>
+																						{file.display_name}
+																					</div>
+																					<div class="text-xs text-gray-500 dark:text-gray-400">
+																						ID: {file.id}
+																					</div>
+																				</div>
+																			</div>
+																		</td>
+																		<td class="px-6 py-4 whitespace-nowrap">
+																			<span
+																				class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200"
+																			>
+																				{file.file_type_name}
+																			</span>
+																		</td>
+																		<td
+																			class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400"
+																		>
+																			{new Date(file.uploaded_at).toLocaleDateString()}
+																		</td>
+																		<td
+																			class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium"
+																		>
+																			<div class="flex items-center justify-end space-x-3">
+																				<a
+																					href="/download/{file.id}"
+																					class="text-brand-blue hover:text-blue-900 dark:text-blue-400 dark:hover:text-blue-300"
+																					title="Download"
 																				>
 																					<svg
-																						class="w-4 h-4 text-blue-600"
+																						class="w-5 h-5"
 																						fill="none"
 																						stroke="currentColor"
 																						viewBox="0 0 24 24"
@@ -407,52 +498,47 @@
 																							stroke-linecap="round"
 																							stroke-linejoin="round"
 																							stroke-width="2"
-																							d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+																							d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
 																						></path>
 																					</svg>
-																				</div>
-																				<div>
-																					<div class="text-sm font-medium text-gray-900">
-																						{file.display_name}
-																					</div>
-																					<div class="text-sm text-gray-500">
-																						ID: {file.id}
-																					</div>
-																				</div>
-																			</div>
-																		</td>
-																		<td class="px-4 py-3 whitespace-nowrap">
-																			<span
-																				class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-purple-100 text-purple-800"
-																			>
-																				{file.file_type_name}
-																			</span>
-																		</td>
-																		<td class="px-4 py-3 whitespace-nowrap text-sm text-gray-500">
-																			{new Date(file.uploaded_at).toLocaleDateString()}
-																		</td>
-																		<td
-																			class="px-4 py-3 whitespace-nowrap text-right text-sm font-medium"
-																		>
-																			<div class="flex items-center justify-end space-x-2">
-																				<a
-																					href="/download/{file.id}"
-																					rel="external"
-																					class="text-indigo-600 hover:text-indigo-900 text-sm"
-																				>
-																					Download
 																				</a>
 																				<button
 																					onclick={() => startEdit(file)}
-																					class="text-blue-600 hover:text-blue-900 text-sm"
+																					class="text-gray-400 hover:text-brand-purple dark:text-gray-500 dark:hover:text-brand-purple"
+																					title="Edit"
 																				>
-																					Edit
+																					<svg
+																						class="w-5 h-5"
+																						fill="none"
+																						stroke="currentColor"
+																						viewBox="0 0 24 24"
+																					>
+																						<path
+																							stroke-linecap="round"
+																							stroke-linejoin="round"
+																							stroke-width="2"
+																							d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
+																						></path>
+																					</svg>
 																				</button>
 																				<button
 																					onclick={() => confirmDelete(file)}
-																					class="text-red-600 hover:text-red-900 text-sm"
+																					class="text-gray-400 hover:text-red-600 dark:text-gray-500 dark:hover:text-red-400"
+																					title="Delete"
 																				>
-																					Delete
+																					<svg
+																						class="w-5 h-5"
+																						fill="none"
+																						stroke="currentColor"
+																						viewBox="0 0 24 24"
+																					>
+																						<path
+																							stroke-linecap="round"
+																							stroke-linejoin="round"
+																							stroke-width="2"
+																							d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+																						></path>
+																					</svg>
 																				</button>
 																			</div>
 																		</td>
@@ -473,10 +559,10 @@
 			{:else}
 				<div class="px-6 py-12 text-center">
 					<div
-						class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4"
+						class="w-16 h-16 bg-gray-50 dark:bg-gray-800 rounded-full flex items-center justify-center mx-auto mb-4"
 					>
 						<svg
-							class="w-8 h-8 text-gray-400"
+							class="w-8 h-8 text-gray-400 dark:text-gray-500"
 							fill="none"
 							stroke="currentColor"
 							viewBox="0 0 24 24"
@@ -485,15 +571,17 @@
 								stroke-linecap="round"
 								stroke-linejoin="round"
 								stroke-width="2"
-								d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+								d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
 							></path>
 						</svg>
 					</div>
-					<h3 class="text-lg font-medium text-gray-900 mb-2">No Files Uploaded</h3>
-					<p class="text-gray-500 mb-4">Get started by uploading your first file.</p>
+					<h3 class="text-lg font-medium text-gray-900 dark:text-white mb-2">No Files Uploaded</h3>
+					<p class="text-gray-500 dark:text-gray-400 mb-4">
+						Get started by uploading your first file.
+					</p>
 					<a
 						href="/admin/upload"
-						class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm font-medium"
+						class="bg-brand-blue hover:bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors"
 					>
 						Upload First File
 					</a>
@@ -505,16 +593,23 @@
 
 <!-- Edit Modal -->
 {#if editingFile}
-	<div class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
-		<div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
+	<div
+		class="fixed inset-0 bg-gray-600 bg-opacity-50 dark:bg-gray-900 dark:bg-opacity-75 overflow-y-auto h-full w-full z-50"
+	>
+		<div
+			class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white dark:bg-gray-800 dark:border-gray-700"
+		>
 			<div class="mt-3">
-				<h3 class="text-lg font-medium text-gray-900 mb-4">Edit File</h3>
+				<h3 class="text-lg font-medium text-gray-900 dark:text-white mb-4">Edit File</h3>
 
 				<form bind:this={editForm} method="POST" action="?/updateNote" onsubmit={handleFormSubmit}>
 					<input type="hidden" name="id" value={editingFile.id} />
 
 					<div class="mb-4">
-						<label for="displayName" class="block text-sm font-medium text-gray-700 mb-1">
+						<label
+							for="displayName"
+							class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+						>
 							File Name
 						</label>
 						<input
@@ -523,12 +618,15 @@
 							id="displayName"
 							bind:value={editingFile.display_name}
 							required
-							class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+							class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
 						/>
 					</div>
 
 					<div class="mb-4">
-						<label for="classId" class="block text-sm font-medium text-gray-700 mb-1">
+						<label
+							for="classId"
+							class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+						>
 							Class
 						</label>
 						<select
@@ -536,7 +634,7 @@
 							id="classId"
 							bind:value={editingFile.class_id}
 							required
-							class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+							class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
 						>
 							<option value="">Select a class</option>
 							{#each data.classes as classItem}
@@ -546,7 +644,10 @@
 					</div>
 
 					<div class="mb-4">
-						<label for="subjectId" class="block text-sm font-medium text-gray-700 mb-1">
+						<label
+							for="subjectId"
+							class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+						>
 							Subject
 						</label>
 						<select
@@ -554,7 +655,7 @@
 							id="subjectId"
 							bind:value={editingFile.subject_id}
 							required
-							class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+							class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
 						>
 							<option value="">Select a subject</option>
 							{#each data.subjects.filter((s) => s.class_id === editingFile.class_id) as subject}
@@ -564,7 +665,10 @@
 					</div>
 
 					<div class="mb-6">
-						<label for="fileTypeId" class="block text-sm font-medium text-gray-700 mb-1">
+						<label
+							for="fileTypeId"
+							class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+						>
 							File Type
 						</label>
 						<select
@@ -572,7 +676,7 @@
 							id="fileTypeId"
 							bind:value={editingFile.file_type_id}
 							required
-							class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+							class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
 						>
 							<option value="">Select a file type</option>
 							{#each data.fileTypes as fileType}
@@ -582,11 +686,14 @@
 					</div>
 
 					<!-- File Replacement Section -->
-					<div class="mb-6 pb-6 border-b border-gray-200">
-						<label for="replacementFile" class="block text-sm font-medium text-gray-700 mb-1">
+					<div class="mb-6 pb-6 border-b border-gray-200 dark:border-gray-700">
+						<label
+							for="replacementFile"
+							class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+						>
 							Replace File (Optional)
 						</label>
-						<p class="text-xs text-gray-500 mb-2">
+						<p class="text-xs text-gray-500 dark:text-gray-400 mb-2">
 							Upload a new file to replace the existing one. Leave empty to keep the current file.
 						</p>
 						<input
@@ -594,7 +701,7 @@
 							id="replacementFile"
 							onchange={handleFileSelect}
 							disabled={isUploading}
-							class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
+							class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 dark:file:bg-blue-900/30 dark:file:text-blue-400 dark:hover:file:bg-blue-900/50 bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
 						/>
 						{#if replacementFile}
 							<p class="mt-2 text-sm text-green-600">
@@ -604,10 +711,10 @@
 						{#if isUploading}
 							<div class="mt-3">
 								<div class="flex items-center justify-between mb-1">
-									<span class="text-sm text-gray-700">Uploading...</span>
-									<span class="text-sm text-gray-700">{uploadProgress}%</span>
+									<span class="text-sm text-gray-700 dark:text-gray-300">Uploading...</span>
+									<span class="text-sm text-gray-700 dark:text-gray-300">{uploadProgress}%</span>
 								</div>
-								<div class="w-full bg-gray-200 rounded-full h-2">
+								<div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
 									<div
 										class="bg-blue-600 h-2 rounded-full transition-all duration-300"
 										style="width: {uploadProgress}%"
@@ -622,7 +729,7 @@
 							type="button"
 							onclick={cancelEdit}
 							disabled={isUploading}
-							class="px-4 py-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400 disabled:opacity-50 disabled:cursor-not-allowed"
+							class="px-4 py-2 bg-gray-300 dark:bg-gray-600 text-gray-700 dark:text-gray-200 rounded-md hover:bg-gray-400 dark:hover:bg-gray-500 disabled:opacity-50 disabled:cursor-not-allowed"
 						>
 							Cancel
 						</button>
@@ -666,11 +773,15 @@
 
 <!-- Delete Confirmation Modal -->
 {#if showDeleteModal && fileToDelete}
-	<div class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
-		<div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
+	<div
+		class="fixed inset-0 bg-gray-600 bg-opacity-50 dark:bg-gray-900 dark:bg-opacity-75 overflow-y-auto h-full w-full z-50"
+	>
+		<div
+			class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white dark:bg-gray-800 dark:border-gray-700"
+		>
 			<div class="mt-3 text-center">
 				<div
-					class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-red-100 mb-4"
+					class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-red-100 dark:bg-red-900/30 mb-4"
 				>
 					<svg class="h-6 w-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 						<path
@@ -681,8 +792,8 @@
 						></path>
 					</svg>
 				</div>
-				<h3 class="text-lg font-medium text-gray-900 mb-2">Delete File</h3>
-				<p class="text-sm text-gray-500 mb-4">
+				<h3 class="text-lg font-medium text-gray-900 dark:text-white mb-2">Delete File</h3>
+				<p class="text-sm text-gray-500 dark:text-gray-400 mb-4">
 					Are you sure you want to delete "<strong>{fileToDelete.display_name}</strong>"? This
 					action cannot be undone and will permanently remove the file from storage.
 				</p>
@@ -694,7 +805,7 @@
 						<button
 							type="button"
 							onclick={cancelDelete}
-							class="px-4 py-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400"
+							class="px-4 py-2 bg-gray-300 dark:bg-gray-600 text-gray-700 dark:text-gray-200 rounded-md hover:bg-gray-400 dark:hover:bg-gray-500"
 						>
 							Cancel
 						</button>
