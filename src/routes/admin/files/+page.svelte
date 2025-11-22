@@ -24,6 +24,49 @@
 	let expandedClasses = $state(new Set<number>());
 	let expandedSubjects = $state(new Set<string>());
 
+	// Helper function to get file icon based on file type
+	function getFileIcon(fileTypeName: string) {
+		const type = fileTypeName.toLowerCase();
+
+		if (type.includes('pdf')) {
+			return {
+				color: 'text-red-600 dark:text-red-400',
+				bg: 'bg-red-100 dark:bg-red-900/30',
+				path: 'M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z',
+			};
+		} else if (type.includes('doc')) {
+			return {
+				color: 'text-blue-600 dark:text-blue-400',
+				bg: 'bg-blue-100 dark:bg-blue-900/30',
+				path: 'M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z M9 10h6 M9 14h6 M9 18h4',
+			};
+		} else if (type.includes('ppt')) {
+			return {
+				color: 'text-orange-600 dark:text-orange-400',
+				bg: 'bg-orange-100 dark:bg-orange-900/30',
+				path: 'M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z M10 12h4 M10 15h4',
+			};
+		} else if (type.includes('xls')) {
+			return {
+				color: 'text-green-600 dark:text-green-400',
+				bg: 'bg-green-100 dark:bg-green-900/30',
+				path: 'M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z M10 14h4v2h-4v-2z M10 10h4v2h-4v-2z',
+			};
+		} else if (type.includes('image')) {
+			return {
+				color: 'text-purple-600 dark:text-purple-400',
+				bg: 'bg-purple-100 dark:bg-purple-900/30',
+				path: 'M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z',
+			};
+		} else {
+			return {
+				color: 'text-gray-600 dark:text-gray-400',
+				bg: 'bg-gray-100 dark:bg-gray-700',
+				path: 'M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z',
+			};
+		}
+	}
+
 	function toggleClass(classId: number) {
 		if (expandedClasses.has(classId)) {
 			expandedClasses.delete(classId);
@@ -412,48 +455,28 @@
 																class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700"
 															>
 																{#each subject.files as file}
+																	{@const icon = getFileIcon(file.file_type_name)}
 																	<tr
 																		class="hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
 																	>
 																		<td class="px-6 py-4 whitespace-nowrap">
 																			<div class="flex items-center">
 																				<div
-																					class="flex-shrink-0 h-10 w-10 rounded-lg flex items-center justify-center text-lg shadow-sm
-																					{file.file_type_name.toLowerCase().includes('pdf')
-																						? 'bg-red-100 text-red-600 dark:bg-red-900/30 dark:text-red-400'
-																						: file.file_type_name.toLowerCase().includes('doc')
-																							? 'bg-blue-100 text-blue-600 dark:bg-blue-900/30 dark:text-blue-400'
-																							: file.file_type_name.toLowerCase().includes('ppt')
-																								? 'bg-orange-100 text-orange-600 dark:bg-orange-900/30 dark:text-orange-400'
-																								: file.file_type_name.toLowerCase().includes('xls')
-																									? 'bg-green-100 text-green-600 dark:bg-green-900/30 dark:text-green-400'
-																									: file.file_type_name
-																												.toLowerCase()
-																												.includes('image')
-																										? 'bg-purple-100 text-purple-600 dark:bg-purple-900/30 dark:text-purple-400'
-																										: 'bg-gray-100 text-gray-600 dark:bg-gray-700 dark:text-gray-400'}"
+																					class="flex-shrink-0 h-10 w-10 rounded-lg flex items-center justify-center shadow-sm {icon.bg}"
 																				>
-																					{#if file.file_type_name.toLowerCase().includes('pdf')}
-																						<i class="fas fa-file-pdf"></i>
-																					{:else if file.file_type_name
-																						.toLowerCase()
-																						.includes('doc')}
-																						<i class="fas fa-file-word"></i>
-																					{:else if file.file_type_name
-																						.toLowerCase()
-																						.includes('ppt')}
-																						<i class="fas fa-file-powerpoint"></i>
-																					{:else if file.file_type_name
-																						.toLowerCase()
-																						.includes('xls')}
-																						<i class="fas fa-file-excel"></i>
-																					{:else if file.file_type_name
-																						.toLowerCase()
-																						.includes('image')}
-																						<i class="fas fa-file-image"></i>
-																					{:else}
-																						<i class="fas fa-file"></i>
-																					{/if}
+																					<svg
+																						class="h-5 w-5 {icon.color}"
+																						fill="none"
+																						stroke="currentColor"
+																						viewBox="0 0 24 24"
+																					>
+																						<path
+																							stroke-linecap="round"
+																							stroke-linejoin="round"
+																							stroke-width="2"
+																							d={icon.path}
+																						/>
+																					</svg>
 																				</div>
 																				<div class="ml-4">
 																					<div
