@@ -235,16 +235,16 @@
 			<div class="divide-y divide-gray-100 dark:divide-gray-700">
 				{#each data.classes as classItem}
 					<div
-						class="px-6 py-4 flex items-center justify-between hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors"
+						class="px-4 sm:px-6 py-4 flex flex-col sm:flex-row items-start sm:items-center justify-between hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors gap-4 sm:gap-0"
 					>
-						<div class="flex items-center space-x-4">
+						<div class="flex items-center space-x-4 w-full sm:w-auto">
 							<div
-								class="w-10 h-10 bg-gray-100 dark:bg-gray-700 rounded-lg flex items-center justify-center text-gray-500 dark:text-gray-400 font-bold"
+								class="w-10 h-10 bg-gray-100 dark:bg-gray-700 rounded-lg flex items-center justify-center text-gray-500 dark:text-gray-400 font-bold flex-shrink-0"
 							>
 								{classItem.name.charAt(0)}
 							</div>
-							<div>
-								<h3 class="text-base font-medium text-gray-900 dark:text-white">
+							<div class="min-w-0 flex-1">
+								<h3 class="text-base font-medium text-gray-900 dark:text-white truncate">
 									{classItem.name}
 								</h3>
 								<p class="text-xs text-gray-500 dark:text-gray-400">
@@ -253,7 +253,7 @@
 							</div>
 						</div>
 
-						<div class="flex items-center space-x-3">
+						<div class="flex items-center space-x-3 w-full sm:w-auto justify-end">
 							<a
 								href="/{classItem.slug}"
 								target="_blank"

@@ -305,7 +305,9 @@
 	<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 		<!-- Header -->
 		<div class="mb-8">
-			<div class="flex justify-between items-center">
+			<div
+				class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 sm:gap-0"
+			>
 				<div>
 					<h1 class="text-3xl font-bold text-gray-900 dark:text-white">File Management</h1>
 					<p class="mt-2 text-gray-600 dark:text-gray-400">
@@ -313,7 +315,7 @@
 					</p>
 				</div>
 				<a
-					class="bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-200 px-4 py-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors font-medium"
+					class="bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-200 px-4 py-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors font-medium w-full sm:w-auto text-center"
 					href="/admin/dashboard"
 				>
 					← Back to Dashboard
@@ -326,14 +328,16 @@
 			class="bg-white dark:bg-gray-800 shadow-sm border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden"
 		>
 			<div
-				class="px-6 py-4 border-b border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/50"
+				class="px-4 sm:px-6 py-4 border-b border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/50"
 			>
-				<div class="flex items-center justify-between">
+				<div
+					class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 sm:gap-0"
+				>
 					<h2 class="text-lg font-semibold text-gray-900 dark:text-white">
 						All Files ({data.notes.length})
 					</h2>
 					<a
-						class="bg-brand-blue hover:bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors shadow-sm"
+						class="bg-brand-blue hover:bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors shadow-sm w-full sm:w-auto text-center"
 						href="/admin/upload"
 					>
 						Upload New File
@@ -349,11 +353,11 @@
 							<button
 								type="button"
 								onclick={() => toggleClass(cls.id)}
-								class="flex items-center justify-between w-full text-left px-6 py-4 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors focus:outline-none"
+								class="flex items-center justify-between w-full text-left px-4 sm:px-6 py-4 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors focus:outline-none"
 							>
-								<div class="flex items-center">
+								<div class="flex items-center min-w-0">
 									<div
-										class="w-8 h-8 bg-blue-50 dark:bg-blue-900/20 rounded-lg flex items-center justify-center mr-3 text-brand-blue dark:text-blue-400"
+										class="w-8 h-8 bg-blue-50 dark:bg-blue-900/20 rounded-lg flex items-center justify-center mr-3 text-brand-blue dark:text-blue-400 flex-shrink-0"
 									>
 										<svg
 											class="w-5 h-5 transform transition-transform duration-200 {expandedClasses.has(
@@ -373,10 +377,11 @@
 											/>
 										</svg>
 									</div>
-									<span class="text-lg font-semibold text-gray-900 dark:text-white">{cls.name}</span
+									<span class="text-lg font-semibold text-gray-900 dark:text-white truncate"
+										>{cls.name}</span
 									>
 									<span
-										class="ml-3 px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200"
+										class="ml-3 px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 flex-shrink-0"
 									>
 										{cls.totalFiles} files
 									</span>
@@ -393,7 +398,7 @@
 											<button
 												type="button"
 												onclick={() => toggleSubject(cls.id, subject.id)}
-												class="flex items-center justify-between w-full text-left px-6 py-3 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors focus:outline-none pl-16"
+												class="flex items-center justify-between w-full text-left px-4 sm:px-6 py-3 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors focus:outline-none pl-12 sm:pl-16"
 											>
 												<div class="flex items-center">
 													<svg
@@ -423,10 +428,10 @@
 											</button>
 
 											{#if expandedSubjects.has(`${cls.id}-${subject.id}`)}
-												<div class="px-6 pb-4 pl-16">
+												<div class="px-4 sm:px-6 pb-4 pl-4 sm:pl-16 overflow-x-auto">
 													<!-- Files Table -->
 													<div
-														class="overflow-hidden shadow ring-1 ring-black ring-opacity-5 rounded-lg bg-white dark:bg-gray-800"
+														class="overflow-hidden shadow ring-1 ring-black ring-opacity-5 rounded-lg bg-white dark:bg-gray-800 min-w-[600px]"
 													>
 														<table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
 															<thead class="bg-gray-50 dark:bg-gray-700">
