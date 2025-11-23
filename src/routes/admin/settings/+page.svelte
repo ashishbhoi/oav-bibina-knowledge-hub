@@ -83,7 +83,9 @@
 	<!-- Header -->
 	<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 dark:bg-gray-800">
 		<div class="mb-8">
-			<div class="flex justify-between items-center">
+			<div
+				class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 sm:gap-0"
+			>
 				<div>
 					<h1 class="text-3xl font-bold text-gray-900 dark:text-white">Admin Settings</h1>
 					<p class="mt-2 text-gray-600 dark:text-gray-400">
@@ -91,7 +93,7 @@
 					</p>
 				</div>
 				<a
-					class="bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-200 px-4 py-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors font-medium"
+					class="bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-200 px-4 py-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors font-medium w-full sm:w-auto text-center"
 					href="/admin/dashboard"
 				>
 					← Back to Dashboard
@@ -154,7 +156,7 @@
 		{/if}
 
 		<!-- Tabs -->
-		<div class="border-b border-gray-200 dark:border-gray-700 mb-8">
+		<div class="border-b border-gray-200 dark:border-gray-700 mb-8 overflow-x-auto">
 			<nav class="-mb-px flex space-x-8" aria-label="Tabs">
 				<button
 					class={`whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm transition-colors ${
@@ -225,7 +227,7 @@
 						>
 							Add New Class
 						</h3>
-						<div class="flex gap-4">
+						<div class="flex flex-col sm:flex-row gap-4">
 							<input
 								type="text"
 								name="name"
@@ -247,7 +249,7 @@
 					<div class="space-y-3">
 						{#each data.classes as cls}
 							<div
-								class="flex items-center justify-between p-4 border border-gray-200 rounded-xl hover:border-gray-300 transition-colors bg-white dark:bg-gray-800 dark:border-gray-700 dark:hover:border-gray-600 dark:text-white"
+								class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between p-4 border border-gray-200 rounded-xl hover:border-gray-300 transition-colors bg-white dark:bg-gray-800 dark:border-gray-700 dark:hover:border-gray-600 dark:text-white gap-4 sm:gap-0"
 							>
 								{#if editingItem?.id === cls.id}
 									<!-- Edit Form -->
@@ -262,7 +264,7 @@
 												editingItem = null;
 											};
 										}}
-										class="flex items-center gap-3 flex-1"
+										class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 flex-1"
 									>
 										<input type="hidden" name="id" value={cls.id} />
 										<input
@@ -275,32 +277,34 @@
 											}}
 											class="flex-1 border border-gray-300 dark:border-gray-600 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-brand-blue/20 focus:border-brand-blue bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
 										/>
-										<button
-											type="submit"
-											disabled={isLoading}
-											class="bg-green-600 text-white px-4 py-2 rounded-lg text-sm hover:bg-green-700 disabled:opacity-50 font-medium"
-										>
-											Save
-										</button>
-										<button
-											type="button"
-											onclick={cancelEdit}
-											class="bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200 px-4 py-2 rounded-lg text-sm hover:bg-gray-200 dark:hover:bg-gray-600 font-medium"
-										>
-											Cancel
-										</button>
+										<div class="flex gap-2">
+											<button
+												type="submit"
+												disabled={isLoading}
+												class="bg-green-600 text-white px-4 py-2 rounded-lg text-sm hover:bg-green-700 disabled:opacity-50 font-medium flex-1 sm:flex-none"
+											>
+												Save
+											</button>
+											<button
+												type="button"
+												onclick={cancelEdit}
+												class="bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200 px-4 py-2 rounded-lg text-sm hover:bg-gray-200 dark:hover:bg-gray-600 font-medium flex-1 sm:flex-none"
+											>
+												Cancel
+											</button>
+										</div>
 									</form>
 								{:else}
 									<!-- Display Mode -->
 									<div class="flex items-center gap-3">
 										<div
-											class="w-10 h-10 bg-blue-50 dark:bg-blue-900/20 rounded-lg flex items-center justify-center text-brand-blue dark:text-blue-400 font-bold"
+											class="w-10 h-10 bg-blue-50 dark:bg-blue-900/20 rounded-lg flex items-center justify-center text-brand-blue dark:text-blue-400 font-bold flex-shrink-0"
 										>
 											{cls.name.charAt(0)}
 										</div>
 										<span class="font-medium text-gray-900 dark:text-white">{cls.name}</span>
 									</div>
-									<div class="flex gap-2">
+									<div class="flex gap-2 justify-end">
 										<button
 											onclick={() => startEdit(cls)}
 											class="text-gray-400 hover:text-brand-blue dark:text-gray-500 dark:hover:text-blue-400 p-2 rounded-lg hover:bg-blue-50 dark:hover:bg-blue-900/30 transition-colors"
@@ -397,7 +401,7 @@
 						>
 							Add New File Type
 						</h3>
-						<div class="flex gap-4">
+						<div class="flex flex-col sm:flex-row gap-4">
 							<input
 								type="text"
 								name="name"
@@ -419,7 +423,7 @@
 					<div class="space-y-3">
 						{#each data.fileTypes as fileType}
 							<div
-								class="flex items-center justify-between p-4 border border-gray-200 dark:border-gray-700 rounded-xl hover:border-gray-300 dark:hover:border-gray-600 transition-colors bg-white dark:bg-gray-800"
+								class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between p-4 border border-gray-200 dark:border-gray-700 rounded-xl hover:border-gray-300 dark:hover:border-gray-600 transition-colors bg-white dark:bg-gray-800 gap-4 sm:gap-0"
 							>
 								{#if editingItem?.id === fileType.id}
 									<!-- Edit Form -->
@@ -434,7 +438,7 @@
 												editingItem = null;
 											};
 										}}
-										class="flex items-center gap-3 flex-1"
+										class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 flex-1"
 									>
 										<input type="hidden" name="id" value={fileType.id} />
 										<input
@@ -447,26 +451,28 @@
 											}}
 											class="flex-1 border border-gray-300 dark:border-gray-600 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-brand-blue/20 focus:border-brand-blue bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
 										/>
-										<button
-											type="submit"
-											disabled={isLoading}
-											class="bg-green-600 text-white px-4 py-2 rounded-lg text-sm hover:bg-green-700 disabled:opacity-50 font-medium"
-										>
-											Save
-										</button>
-										<button
-											type="button"
-											onclick={cancelEdit}
-											class="bg-gray-100 text-gray-700 px-4 py-2 rounded-lg text-sm hover:bg-gray-200 font-medium"
-										>
-											Cancel
-										</button>
+										<div class="flex gap-2">
+											<button
+												type="submit"
+												disabled={isLoading}
+												class="bg-green-600 text-white px-4 py-2 rounded-lg text-sm hover:bg-green-700 disabled:opacity-50 font-medium flex-1 sm:flex-none"
+											>
+												Save
+											</button>
+											<button
+												type="button"
+												onclick={cancelEdit}
+												class="bg-gray-100 text-gray-700 px-4 py-2 rounded-lg text-sm hover:bg-gray-200 font-medium flex-1 sm:flex-none"
+											>
+												Cancel
+											</button>
+										</div>
 									</form>
 								{:else}
 									<!-- Display Mode -->
 									<div class="flex items-center gap-3">
 										<div
-											class="w-10 h-10 bg-purple-50 dark:bg-purple-900/20 rounded-lg flex items-center justify-center text-brand-purple dark:text-purple-400 font-bold"
+											class="w-10 h-10 bg-purple-50 dark:bg-purple-900/20 rounded-lg flex items-center justify-center text-brand-purple dark:text-purple-400 font-bold flex-shrink-0"
 										>
 											<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 												<path
@@ -479,7 +485,7 @@
 										</div>
 										<span class="font-medium text-gray-900 dark:text-white">{fileType.name}</span>
 									</div>
-									<div class="flex gap-2">
+									<div class="flex gap-2 justify-end">
 										<button
 											onclick={() => startEdit(fileType)}
 											class="text-gray-400 hover:text-brand-blue dark:text-gray-500 dark:hover:text-blue-400 p-2 rounded-lg hover:bg-blue-50 dark:hover:bg-blue-900/30 transition-colors"
@@ -565,14 +571,14 @@
 						>
 							<!-- Class Header -->
 							<div
-								class="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-700/50 border-b border-gray-200 dark:border-gray-700"
+								class="flex flex-col sm:flex-row items-start sm:items-center justify-between p-4 bg-gray-50 dark:bg-gray-700/50 border-b border-gray-200 dark:border-gray-700 gap-4 sm:gap-0"
 							>
 								<button
 									onclick={() => toggleClassExpansion(cls.id)}
-									class="flex items-center space-x-3 text-left flex-1 focus:outline-none"
+									class="flex items-center space-x-3 text-left flex-1 focus:outline-none w-full sm:w-auto"
 								>
 									<div
-										class="w-8 h-8 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-600 rounded-lg flex items-center justify-center text-gray-500 dark:text-gray-400"
+										class="w-8 h-8 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-600 rounded-lg flex items-center justify-center text-gray-500 dark:text-gray-400 flex-shrink-0"
 									>
 										<svg
 											class={`w-4 h-4 transition-transform duration-200 ${expandedClasses.has(cls.id) ? 'rotate-90' : ''}`}
@@ -599,7 +605,7 @@
 								</button>
 								<button
 									onclick={() => startAddSubject(cls.id)}
-									class="bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-200 px-4 py-2 rounded-lg text-sm hover:bg-gray-50 dark:hover:bg-gray-700 font-medium transition-colors"
+									class="bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-200 px-4 py-2 rounded-lg text-sm hover:bg-gray-50 dark:hover:bg-gray-700 font-medium transition-colors w-full sm:w-auto"
 								>
 									Add Subject
 								</button>
@@ -627,7 +633,7 @@
 											<h4 class="text-sm font-semibold text-brand-blue dark:text-blue-400 mb-3">
 												Add New Subject to {cls.name}
 											</h4>
-											<div class="flex gap-3">
+											<div class="flex flex-col sm:flex-row gap-3">
 												<input type="hidden" name="class_id" value={cls.id} />
 												<input
 													type="text"
@@ -637,23 +643,25 @@
 													required
 													class="flex-1 border border-gray-300 dark:border-gray-600 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-brand-blue/20 focus:border-brand-blue bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
 												/>
-												<button
-													type="submit"
-													disabled={isLoading}
-													class="bg-brand-blue text-white px-4 py-2 rounded-lg hover:bg-blue-700 disabled:opacity-50 font-medium"
-												>
-													{isLoading ? 'Adding...' : 'Add'}
-												</button>
-												<button
-													type="button"
-													onclick={() => {
-														newSubjectClassId = null;
-														editingItem = null;
-													}}
-													class="bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-200 px-4 py-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 font-medium"
-												>
-													Cancel
-												</button>
+												<div class="flex gap-2">
+													<button
+														type="submit"
+														disabled={isLoading}
+														class="bg-brand-blue text-white px-4 py-2 rounded-lg hover:bg-blue-700 disabled:opacity-50 font-medium flex-1 sm:flex-none"
+													>
+														{isLoading ? 'Adding...' : 'Add'}
+													</button>
+													<button
+														type="button"
+														onclick={() => {
+															newSubjectClassId = null;
+															editingItem = null;
+														}}
+														class="bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-200 px-4 py-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 font-medium flex-1 sm:flex-none"
+													>
+														Cancel
+													</button>
+												</div>
 											</div>
 										</form>
 									{/if}
@@ -662,7 +670,7 @@
 									<div class="space-y-2">
 										{#each classSubjects as subject}
 											<div
-												class="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg border border-transparent hover:border-gray-200 dark:hover:border-gray-600 transition-colors"
+												class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg border border-transparent hover:border-gray-200 dark:hover:border-gray-600 transition-colors gap-3 sm:gap-0"
 											>
 												{#if editingItem && editingItem.id === subject.id}
 													<!-- Edit Form -->
@@ -677,7 +685,7 @@
 																editingItem = null;
 															};
 														}}
-														class="flex items-center gap-3 flex-1"
+														class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 flex-1"
 													>
 														<input type="hidden" name="id" value={subject.id} />
 														<input type="hidden" name="class_id" value={subject.class_id} />
@@ -688,26 +696,28 @@
 															required
 															class="flex-1 border border-gray-300 dark:border-gray-600 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-brand-blue/20 focus:border-brand-blue bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
 														/>
-														<button
-															type="submit"
-															disabled={isLoading}
-															class="bg-green-600 text-white px-4 py-2 rounded-lg text-sm hover:bg-green-700 disabled:opacity-50 font-medium"
-														>
-															{isLoading ? 'Saving...' : 'Save'}
-														</button>
-														<button
-															type="button"
-															onclick={() => (editingItem = null)}
-															class="bg-gray-200 dark:bg-gray-600 text-gray-700 dark:text-gray-200 px-4 py-2 rounded-lg text-sm hover:bg-gray-300 dark:hover:bg-gray-500 font-medium"
-														>
-															Cancel
-														</button>
+														<div class="flex gap-2">
+															<button
+																type="submit"
+																disabled={isLoading}
+																class="bg-green-600 text-white px-4 py-2 rounded-lg text-sm hover:bg-green-700 disabled:opacity-50 font-medium flex-1 sm:flex-none"
+															>
+																{isLoading ? 'Saving...' : 'Save'}
+															</button>
+															<button
+																type="button"
+																onclick={() => (editingItem = null)}
+																class="bg-gray-200 dark:bg-gray-600 text-gray-700 dark:text-gray-200 px-4 py-2 rounded-lg text-sm hover:bg-gray-300 dark:hover:bg-gray-500 font-medium flex-1 sm:flex-none"
+															>
+																Cancel
+															</button>
+														</div>
 													</form>
 												{:else}
 													<!-- Display Mode -->
 													<div class="flex items-center gap-3">
 														<div
-															class="w-8 h-8 bg-white dark:bg-gray-800 rounded-lg flex items-center justify-center text-gray-400 dark:text-gray-500 border border-gray-200 dark:border-gray-600"
+															class="w-8 h-8 bg-white dark:bg-gray-800 rounded-lg flex items-center justify-center text-gray-400 dark:text-gray-500 border border-gray-200 dark:border-gray-600 flex-shrink-0"
 														>
 															<svg
 																class="w-4 h-4"
@@ -732,7 +742,7 @@
 															</p>
 														</div>
 													</div>
-													<div class="flex gap-2">
+													<div class="flex gap-2 justify-end">
 														<button
 															onclick={() => startEdit(subject)}
 															class="text-gray-400 hover:text-brand-blue dark:text-gray-500 dark:hover:text-blue-400 p-2 rounded-lg hover:bg-blue-50 dark:hover:bg-blue-900/30 transition-colors"
@@ -898,7 +908,7 @@
 						<button
 							type="submit"
 							disabled={isLoading}
-							class="bg-brand-blue text-white px-8 py-2.5 rounded-lg hover:bg-blue-700 disabled:opacity-50 transition-colors font-medium shadow-sm"
+							class="bg-brand-blue text-white px-8 py-2.5 rounded-lg hover:bg-blue-700 disabled:opacity-50 transition-colors font-medium shadow-sm w-full sm:w-auto"
 						>
 							{isLoading ? 'Updating...' : 'Update Credentials'}
 						</button>
