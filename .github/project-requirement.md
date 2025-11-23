@@ -20,6 +20,27 @@ It focuses on **what** the platform does and **why**, serving as a guide for sta
 
 ---
 
+## **🎨 Design System: Glassmorphism UI**
+
+**Overview:** The application uses a modern Glassmorphism design language to provide depth, hierarchy, and a premium feel.
+
+**Core Design Tokens:**
+
+- **Background:**
+  - **Light Mode:** Vibrant mesh gradient (Green/Indigo/Orange/Cyan)
+  - **Dark Mode:** Deep space gradient (Indigo/Purple/Red/Blue)
+- **Glass Surface (Cards/Containers):**
+  - **Base:** `bg-white/20` (Light) / `bg-gray-900/30` (Dark)
+  - **Blur:** `backdrop-blur-lg`
+  - **Border:** `border-white/30` (Light) / `border-white/10` (Dark)
+  - **Shadow:** `shadow-xl`
+- **Interactive Elements:**
+  - **Inputs:** Higher opacity (`bg-white/50`) for readability
+  - **Buttons:** Vibrant brand colors with slight transparency and blur
+  - **Hover Effects:** Scale up (`scale-[1.01]`) and increased brightness
+
+---
+
 ### **1. Project Vision**
 
 **1.1. Project Title:** OAV Bibina Knowledge Hub

@@ -4,7 +4,53 @@
 
 body {
 	font-family: 'Outfit', sans-serif;
-	@apply text-gray-800 bg-gray-50 dark:bg-gray-900 dark:text-gray-100;
+	@apply text-gray-800 dark:text-gray-100 min-h-screen;
+	/* Mesh Gradient Background - Light Theme */
+	background-color: #f0f9ff;
+	background-image:
+		radial-gradient(at 0% 0%, rgba(167, 243, 208, 0.5) 0px, transparent 50%),
+		radial-gradient(at 100% 0%, rgba(165, 180, 252, 0.5) 0px, transparent 50%),
+		radial-gradient(at 100% 100%, rgba(253, 186, 116, 0.5) 0px, transparent 50%),
+		radial-gradient(at 0% 100%, rgba(103, 232, 249, 0.5) 0px, transparent 50%);
+	background-attachment: fixed;
+}
+
+.dark body {
+	/* Mesh Gradient Background - Dark Theme */
+	background-color: #020617;
+	background-image:
+		radial-gradient(at 0% 0%, rgba(49, 46, 129, 0.4) 0px, transparent 50%),
+		radial-gradient(at 100% 0%, rgba(88, 28, 135, 0.4) 0px, transparent 50%),
+		radial-gradient(at 100% 100%, rgba(153, 27, 27, 0.4) 0px, transparent 50%),
+		radial-gradient(at 0% 100%, rgba(30, 58, 138, 0.4) 0px, transparent 50%);
+	background-attachment: fixed;
+}
+
+@layer components {
+	/* Base Glass Container */
+	.glass {
+		@apply bg-white/20 dark:bg-gray-900/30 backdrop-blur-lg border border-white/30 dark:border-white/10 shadow-xl;
+	}
+
+	/* Interactive Glass Card (Hover effects) */
+	.glass-card {
+		@apply glass rounded-2xl p-6 transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl hover:bg-white/30 dark:hover:bg-gray-900/40;
+	}
+
+	/* Glass Inputs */
+	.glass-input {
+		@apply bg-white/50 dark:bg-gray-800/50 border border-gray-200/50 dark:border-gray-700/50 rounded-xl px-4 py-2 focus:ring-2 focus:ring-brand-blue/50 focus:outline-none backdrop-blur-sm placeholder-gray-500 transition-all;
+	}
+
+	/* Glass Button */
+	.glass-btn {
+		@apply bg-brand-blue hover:bg-brand-blue/90 text-white font-medium py-2 px-6 rounded-xl shadow-lg hover:shadow-brand-blue/30 transition-all duration-300 backdrop-blur-sm active:scale-95;
+	}
+
+	/* Secondary Glass Button */
+	.glass-btn-secondary {
+		@apply bg-white/50 dark:bg-gray-800/50 hover:bg-white/70 dark:hover:bg-gray-800/70 text-gray-800 dark:text-gray-100 font-medium py-2 px-6 rounded-xl border border-white/20 dark:border-white/10 shadow-sm hover:shadow-md transition-all duration-300 backdrop-blur-sm active:scale-95;
+	}
 }
 
 h1,

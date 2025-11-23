@@ -43,17 +43,15 @@
 {#if $page.url.pathname === '/admin'}
 	{@render children()}
 {:else}
-	<div class="min-h-screen bg-gray-50 dark:bg-gray-900 flex">
+	<div class="min-h-screen flex">
 		<!-- Sidebar for Desktop -->
-		<aside
-			class="hidden md:flex flex-col w-64 bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 fixed h-full z-30"
-		>
+		<aside class="hidden md:flex flex-col w-64 glass border-r-0 fixed h-full z-30">
 			<div
-				class="flex items-center justify-center h-16 border-b border-gray-200 dark:border-gray-700 px-4"
+				class="flex items-center justify-center h-16 border-b border-gray-200/30 dark:border-gray-700/30 px-4"
 			>
-				<a href="/" class="flex items-center gap-2 group">
+				<a href="/admin" class="flex items-center gap-2 group">
 					<div
-						class="w-8 h-8 bg-brand-blue rounded-lg flex items-center justify-center text-white font-bold"
+						class="w-8 h-8 bg-brand-blue rounded-lg flex items-center justify-center text-white font-bold shadow-lg"
 					>
 						OB
 					</div>
@@ -72,8 +70,8 @@
 								href={item.href}
 								class="flex items-center px-4 py-3 text-sm font-medium rounded-lg transition-colors group {$page
 									.url.pathname === item.href
-									? 'bg-brand-blue/10 text-brand-blue'
-									: 'text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white'}"
+									? 'bg-brand-blue/20 text-brand-blue shadow-sm'
+									: 'text-gray-600 dark:text-gray-400 hover:bg-white/40 dark:hover:bg-gray-700/40 hover:text-gray-900 dark:hover:text-white'}"
 							>
 								<svg
 									class="mr-3 h-5 w-5 {$page.url.pathname === item.href
@@ -241,7 +239,7 @@
 		<div class="flex-1 md:ml-64 flex flex-col min-h-screen">
 			<!-- Mobile Header -->
 			<div
-				class="md:hidden bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 h-16 flex items-center justify-between px-4 sticky top-0 z-20"
+				class="md:hidden bg-white/20 dark:bg-gray-900/30 backdrop-blur-lg border-b border-white/30 dark:border-white/10 h-16 flex items-center justify-between px-4 sticky top-0 z-20"
 			>
 				<div class="flex items-center gap-2">
 					<div
@@ -268,7 +266,7 @@
 			</div>
 
 			<!-- Page Content -->
-			<main class="flex-1 overflow-y-auto p-4 md:p-8 bg-gray-50 dark:bg-gray-900">
+			<main class="flex-1 overflow-y-auto p-4 md:p-8">
 				{@render children()}
 			</main>
 		</div>

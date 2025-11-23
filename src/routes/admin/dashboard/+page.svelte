@@ -9,7 +9,7 @@
 				subject_count?: number;
 				file_count?: number;
 			}>;
-			stats?: {
+			stats: {
 				totalClasses: number;
 				totalSubjects: number;
 				totalFiles: number;
@@ -18,13 +18,7 @@
 	}
 
 	let { data }: Props = $props();
-
-	// Calculate stats if not provided by server
-	const stats = data.stats || {
-		totalClasses: data.classes.length,
-		totalSubjects: 0, // Placeholder as we don't have this data directly in the current load
-		totalFiles: 0, // Placeholder
-	};
+	const { stats } = data;
 </script>
 
 <svelte:head>
@@ -33,7 +27,7 @@
 	<meta name="robots" content="noindex, nofollow" />
 </svelte:head>
 
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 min-h-screen bg-gray-50 dark:bg-gray-900">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 min-h-screen">
 	<!-- Header -->
 	<div class="mb-8">
 		<h1 class="text-3xl font-bold text-gray-900 dark:text-white">Dashboard Overview</h1>
@@ -44,9 +38,7 @@
 
 	<!-- Stats Overview -->
 	<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-		<div
-			class="bg-white dark:bg-gray-800 rounded-xl shadow-sm p-6 border border-gray-100 dark:border-gray-700 flex items-center"
-		>
+		<div class="glass-card flex items-center">
 			<div
 				class="w-12 h-12 bg-blue-100 dark:bg-blue-900/30 rounded-lg flex items-center justify-center text-blue-600 dark:text-blue-400 mr-4"
 			>
@@ -65,9 +57,7 @@
 			</div>
 		</div>
 
-		<div
-			class="bg-white dark:bg-gray-800 rounded-xl shadow-sm p-6 border border-gray-100 dark:border-gray-700 flex items-center"
-		>
+		<div class="glass-card flex items-center">
 			<div
 				class="w-12 h-12 bg-green-100 dark:bg-green-900/30 rounded-lg flex items-center justify-center text-green-600 dark:text-green-400 mr-4"
 			>
@@ -82,13 +72,11 @@
 			</div>
 			<div>
 				<p class="text-sm font-medium text-gray-500 dark:text-gray-400">Active Subjects</p>
-				<p class="text-2xl font-bold text-gray-900 dark:text-white">--</p>
+				<p class="text-2xl font-bold text-gray-900 dark:text-white">{stats.totalSubjects}</p>
 			</div>
 		</div>
 
-		<div
-			class="bg-white dark:bg-gray-800 rounded-xl shadow-sm p-6 border border-gray-100 dark:border-gray-700 flex items-center"
-		>
+		<div class="glass-card flex items-center">
 			<div
 				class="w-12 h-12 bg-purple-100 dark:bg-purple-900/30 rounded-lg flex items-center justify-center text-purple-600 dark:text-purple-400 mr-4"
 			>
@@ -103,7 +91,7 @@
 			</div>
 			<div>
 				<p class="text-sm font-medium text-gray-500 dark:text-gray-400">Uploaded Files</p>
-				<p class="text-2xl font-bold text-gray-900 dark:text-white">--</p>
+				<p class="text-2xl font-bold text-gray-900 dark:text-white">{stats.totalFiles}</p>
 			</div>
 		</div>
 	</div>

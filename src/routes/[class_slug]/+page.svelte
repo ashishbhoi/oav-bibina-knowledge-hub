@@ -30,20 +30,18 @@
 	/>
 </svelte:head>
 
-<div class="min-h-screen bg-gray-50 dark:bg-gray-900 flex flex-col">
+<div class="min-h-screen flex flex-col">
 	<!-- Header -->
-	<header
-		class="bg-white dark:bg-gray-800 shadow-sm border-b dark:border-gray-700 sticky top-0 z-50"
-	>
+	<header class="glass sticky top-0 z-50">
 		<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
 			<div class="flex items-center gap-4">
 				<a
 					href="/"
-					class="group p-2 rounded-lg hover:bg-gray-100 transition-colors"
+					class="group p-2 rounded-lg hover:bg-white/20 transition-colors"
 					aria-label="Back to Home"
 				>
 					<div
-						class="w-10 h-10 bg-white dark:bg-gray-900 border-2 border-gray-200 dark:border-gray-700 rounded-xl flex items-center justify-center text-gray-500 dark:text-gray-400 group-hover:border-brand-blue group-hover:text-brand-blue transition-all"
+						class="w-10 h-10 bg-white/50 dark:bg-gray-900/50 border-2 border-gray-200/50 dark:border-gray-700/50 rounded-xl flex items-center justify-center text-gray-500 dark:text-gray-400 group-hover:border-brand-blue group-hover:text-brand-blue transition-all"
 					>
 						<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 							<path
@@ -121,7 +119,7 @@
 							.toLowerCase()
 							.replace(/[^a-z0-9]+/g, '-')
 							.replace(/(^-|-$)/g, '')}/{subject.slug}"
-						class="group bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-sm hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 border-2 border-transparent hover:border-brand-green relative overflow-hidden"
+						class="group glass-card border-2 border-transparent hover:border-brand-green relative overflow-hidden"
 					>
 						<div
 							class="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-brand-green/10 to-brand-blue/10 rounded-bl-full -mr-4 -mt-4 transition-transform group-hover:scale-110"
@@ -147,7 +145,7 @@
 			</div>
 		{:else}
 			<div
-				class="text-center py-12 bg-white dark:bg-gray-800 rounded-3xl border-2 border-dashed border-gray-200 dark:border-gray-700"
+				class="text-center py-12 glass rounded-3xl border-2 border-dashed border-gray-200/50 dark:border-gray-700/50"
 			>
 				<div class="text-6xl mb-4 animate-bounce">🔍</div>
 				<h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">No Subjects Found</h3>
@@ -159,11 +157,15 @@
 	</main>
 
 	<!-- Footer -->
-	<footer class="bg-white dark:bg-gray-800 border-t dark:border-gray-700 mt-auto">
+	<footer class="glass mt-auto border-t-0">
 		<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
 			<div class="text-center">
-				<p class="text-gray-500 text-sm font-medium">Made with 💙 for Students</p>
-				<p class="text-gray-400 text-xs mt-2">&copy; 2025 OAV Bibina Knowledge Hub</p>
+				<p class="text-gray-500 dark:text-gray-100 text-sm font-medium">
+					Made with 💙 for Students
+				</p>
+				<p class="text-gray-400 dark:text-gray-300 text-xs mt-2">
+					&copy; 2025 OAV Bibina Knowledge Hub
+				</p>
 			</div>
 		</div>
 	</footer>
