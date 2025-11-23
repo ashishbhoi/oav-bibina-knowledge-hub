@@ -24,45 +24,198 @@
 	let expandedClasses = $state(new Set<number>());
 	let expandedSubjects = $state(new Set<string>());
 
+	type IconElement =
+		| { type: 'path'; attrs: Record<string, string> }
+		| { type: 'text'; text: string; attrs: Record<string, string> };
+
+	type FileIcon = {
+		color: string;
+		bg: string;
+		viewBox: string;
+		elements: IconElement[];
+	};
+
+	const documentOutline = (): IconElement[] => [
+		{
+			type: 'path',
+			attrs: {
+				d: 'M14 4h14l10 10v30a4 4 0 01-4 4H14a4 4 0 01-4-4V8a4 4 0 014-4z',
+				fill: 'none',
+				stroke: 'currentColor',
+				'stroke-width': '3',
+				'stroke-linejoin': 'round',
+			},
+		},
+		{
+			type: 'path',
+			attrs: {
+				d: 'M28 4v12h12',
+				fill: 'none',
+				stroke: 'currentColor',
+				'stroke-width': '3',
+				'stroke-linejoin': 'round',
+			},
+		},
+	];
+
+	const labelElement = (label: string): IconElement => ({
+		type: 'text',
+		text: label,
+		attrs: {
+			x: '24',
+			y: '34',
+			'font-size': '12',
+			'font-weight': '700',
+			'text-anchor': 'middle',
+			'dominant-baseline': 'middle',
+			fill: 'currentColor',
+		},
+	});
+
+	const createDocumentIcon = (
+		label: string,
+		color: string,
+		bg: string,
+		extra: IconElement[] = []
+	): FileIcon => ({
+		color,
+		bg,
+		viewBox: '0 0 48 48',
+		elements: [...documentOutline(), ...extra, labelElement(label)],
+	});
+
 	// Helper function to get file icon based on file type
-	function getFileIcon(fileTypeName: string) {
+	function getFileIcon(fileTypeName: string): FileIcon {
 		const type = fileTypeName.toLowerCase();
 
 		if (type.includes('pdf')) {
-			return {
-				color: 'text-red-600 dark:text-red-400',
-				bg: 'bg-red-100 dark:bg-red-900/30',
-				path: 'M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z',
-			};
+			return createDocumentIcon(
+				'PDF',
+				'text-red-600 dark:text-red-400',
+				'bg-red-100 dark:bg-red-900/30',
+				[
+					{
+						type: 'path',
+						attrs: {
+							d: 'M16 26h16 M16 32h12',
+							fill: 'none',
+							stroke: 'currentColor',
+							'stroke-width': '3',
+							'stroke-linecap': 'round',
+						},
+					},
+				]
+			);
 		} else if (type.includes('doc')) {
-			return {
-				color: 'text-blue-600 dark:text-blue-400',
-				bg: 'bg-blue-100 dark:bg-blue-900/30',
-				path: 'M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z M9 10h6 M9 14h6 M9 18h4',
-			};
+			return createDocumentIcon(
+				'DOC',
+				'text-blue-600 dark:text-blue-400',
+				'bg-blue-100 dark:bg-blue-900/30',
+				[
+					{
+						type: 'path',
+						attrs: {
+							d: 'M16 24h18 M16 30h14 M16 36h20',
+							fill: 'none',
+							stroke: 'currentColor',
+							'stroke-width': '3',
+							'stroke-linecap': 'round',
+						},
+					},
+				]
+			);
 		} else if (type.includes('ppt')) {
-			return {
-				color: 'text-orange-600 dark:text-orange-400',
-				bg: 'bg-orange-100 dark:bg-orange-900/30',
-				path: 'M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z M10 12h4 M10 15h4',
-			};
+			return createDocumentIcon(
+				'PPT',
+				'text-orange-600 dark:text-orange-400',
+				'bg-orange-100 dark:bg-orange-900/30',
+				[
+					{
+						type: 'path',
+						attrs: {
+							d: 'M16 33l6-7 6 7 6-6',
+							fill: 'none',
+							stroke: 'currentColor',
+							'stroke-width': '3',
+							'stroke-linecap': 'round',
+							'stroke-linejoin': 'round',
+						},
+					},
+				]
+			);
 		} else if (type.includes('xls')) {
-			return {
-				color: 'text-green-600 dark:text-green-400',
-				bg: 'bg-green-100 dark:bg-green-900/30',
-				path: 'M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z M10 14h4v2h-4v-2z M10 10h4v2h-4v-2z',
-			};
+			return createDocumentIcon(
+				'XLS',
+				'text-green-600 dark:text-green-400',
+				'bg-green-100 dark:bg-green-900/30',
+				[
+					{
+						type: 'path',
+						attrs: {
+							d: 'M16 26h18 M16 32h18 M25 24v14 M33 24v14',
+							fill: 'none',
+							stroke: 'currentColor',
+							'stroke-width': '3',
+							'stroke-linecap': 'round',
+						},
+					},
+				]
+			);
 		} else if (type.includes('image')) {
 			return {
 				color: 'text-purple-600 dark:text-purple-400',
 				bg: 'bg-purple-100 dark:bg-purple-900/30',
-				path: 'M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z',
+				viewBox: '0 0 48 48',
+				elements: [
+					{
+						type: 'path',
+						attrs: {
+							d: 'M8 12h32a2 2 0 012 2v22a2 2 0 01-2 2H8a2 2 0 01-2-2V14a2 2 0 012-2z',
+							fill: 'none',
+							stroke: 'currentColor',
+							'stroke-width': '3',
+							'stroke-linejoin': 'round',
+						},
+					},
+					{
+						type: 'path',
+						attrs: {
+							d: 'M20 20a4 4 0 118 0 4 4 0 01-8 0z',
+							fill: 'none',
+							stroke: 'currentColor',
+							'stroke-width': '3',
+						},
+					},
+					{
+						type: 'path',
+						attrs: {
+							d: 'M8 34l10-12 9 11 5-6 10 13',
+							fill: 'none',
+							stroke: 'currentColor',
+							'stroke-width': '3',
+							'stroke-linejoin': 'round',
+						},
+					},
+				],
 			};
 		} else {
 			return {
 				color: 'text-gray-600 dark:text-gray-400',
 				bg: 'bg-gray-100 dark:bg-gray-700',
-				path: 'M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z',
+				viewBox: '0 0 48 48',
+				elements: [
+					...documentOutline(),
+					{
+						type: 'path',
+						attrs: {
+							d: 'M16 28h18 M16 34h12',
+							fill: 'none',
+							stroke: 'currentColor',
+							'stroke-width': '3',
+							'stroke-linecap': 'round',
+						},
+					},
+				],
 			};
 		}
 	}
@@ -301,7 +454,7 @@
 	<meta name="robots" content="noindex, nofollow" />
 </svelte:head>
 
-<div class="min-h-screen bg-gray-50 dark:bg-gray-900 py-8">
+<div class="min-h-screen py-8">
 	<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 		<!-- Header -->
 		<div class="mb-8">
@@ -311,53 +464,53 @@
 				<div>
 					<h1 class="text-3xl font-bold text-gray-900 dark:text-white">File Management</h1>
 					<p class="mt-2 text-gray-600 dark:text-gray-400">
-						Manage uploaded files and their properties
+						Organize, edit, and manage all uploaded study materials
 					</p>
 				</div>
-				<a
-					class="bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-200 px-4 py-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors font-medium w-full sm:w-auto text-center"
-					href="/admin/dashboard"
-				>
-					← Back to Dashboard
-				</a>
-			</div>
-		</div>
-
-		<!-- Files Organization -->
-		<div
-			class="bg-white dark:bg-gray-800 shadow-sm border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden"
-		>
-			<div
-				class="px-4 sm:px-6 py-4 border-b border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/50"
-			>
-				<div
-					class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 sm:gap-0"
-				>
-					<h2 class="text-lg font-semibold text-gray-900 dark:text-white">
-						All Files ({data.notes.length})
-					</h2>
-					<a
-						class="bg-brand-blue hover:bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors shadow-sm w-full sm:w-auto text-center"
-						href="/admin/upload"
-					>
+				<div class="flex gap-3">
+					<a class="glass-btn-secondary inline-flex items-center" href="/admin/dashboard">
+						← Back
+					</a>
+					<a class="glass-btn inline-flex items-center" href="/admin/upload">
+						<svg
+							class="w-5 h-5 mr-2"
+							fill="none"
+							stroke="currentColor"
+							viewBox="0 0 24 24"
+							xmlns="http://www.w3.org/2000/svg"
+						>
+							<path
+								d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								stroke-width="2"
+							></path>
+						</svg>
 						Upload New File
 					</a>
 				</div>
 			</div>
+		</div>
+
+		<!-- File Browser -->
+		<div class="glass rounded-2xl overflow-hidden">
+			<div class="p-6 border-b border-gray-200/30 dark:border-gray-700/30">
+				<h2 class="text-lg font-semibold text-gray-900 dark:text-white">Browse Files</h2>
+			</div>
 
 			{#if groupedFiles.length > 0}
-				<div class="divide-y divide-gray-100 dark:divide-gray-700">
+				<div class="divide-y divide-gray-100/30 dark:divide-gray-700/30">
 					{#each groupedFiles as cls}
 						<!-- Class Header -->
-						<div class="bg-white dark:bg-gray-800">
+						<div class="bg-transparent transition-colors hover:bg-white/5">
 							<button
 								type="button"
 								onclick={() => toggleClass(cls.id)}
-								class="flex items-center justify-between w-full text-left px-4 sm:px-6 py-4 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors focus:outline-none"
+								class="flex items-center justify-between w-full text-left px-4 sm:px-6 py-4 focus:outline-none"
 							>
 								<div class="flex items-center min-w-0">
 									<div
-										class="w-8 h-8 bg-blue-50 dark:bg-blue-900/20 rounded-lg flex items-center justify-center mr-3 text-brand-blue dark:text-blue-400 flex-shrink-0"
+										class="w-8 h-8 bg-blue-50/50 dark:bg-blue-900/20 rounded-lg flex items-center justify-center mr-3 text-brand-blue dark:text-blue-400 flex-shrink-0 backdrop-blur-sm"
 									>
 										<svg
 											class="w-5 h-5 transform transition-transform duration-200 {expandedClasses.has(
@@ -381,7 +534,7 @@
 										>{cls.name}</span
 									>
 									<span
-										class="ml-3 px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 flex-shrink-0"
+										class="ml-3 px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100/50 dark:bg-gray-700/50 text-gray-800 dark:text-gray-200 flex-shrink-0 backdrop-blur-sm"
 									>
 										{cls.totalFiles} files
 									</span>
@@ -390,15 +543,15 @@
 
 							{#if expandedClasses.has(cls.id)}
 								<div
-									class="border-t border-gray-100 dark:border-gray-700 bg-gray-50/50 dark:bg-gray-900/50"
+									class="border-t border-gray-100/30 dark:border-gray-700/30 bg-black/5 dark:bg-black/20"
 								>
 									{#each cls.subjects as subject}
 										<!-- Subject Header -->
-										<div class="border-b border-gray-100 dark:border-gray-700 last:border-0">
+										<div class="border-b border-gray-100/30 dark:border-gray-700/30 last:border-0">
 											<button
 												type="button"
 												onclick={() => toggleSubject(cls.id, subject.id)}
-												class="flex items-center justify-between w-full text-left px-4 sm:px-6 py-3 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors focus:outline-none pl-12 sm:pl-16"
+												class="flex items-center justify-between w-full text-left px-4 sm:px-6 py-3 hover:bg-white/5 transition-colors focus:outline-none pl-12 sm:pl-16"
 											>
 												<div class="flex items-center">
 													<svg
@@ -431,10 +584,12 @@
 												<div class="px-4 sm:px-6 pb-4 pl-4 sm:pl-16 overflow-x-auto">
 													<!-- Files Table -->
 													<div
-														class="overflow-hidden shadow ring-1 ring-black ring-opacity-5 rounded-lg bg-white dark:bg-gray-800 min-w-[600px]"
+														class="overflow-hidden shadow ring-1 ring-black/5 rounded-lg bg-white/40 dark:bg-gray-800/40 backdrop-blur-md min-w-[600px]"
 													>
-														<table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-															<thead class="bg-gray-50 dark:bg-gray-700">
+														<table
+															class="min-w-full divide-y divide-gray-200/30 dark:divide-gray-700/30"
+														>
+															<thead class="bg-gray-50/50 dark:bg-gray-700/50">
 																<tr>
 																	<th
 																		scope="col"
@@ -457,12 +612,12 @@
 																</tr>
 															</thead>
 															<tbody
-																class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700"
+																class="bg-transparent divide-y divide-gray-200/30 dark:divide-gray-700/30"
 															>
 																{#each subject.files as file}
 																	{@const icon = getFileIcon(file.file_type_name)}
 																	<tr
-																		class="hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
+																		class="hover:bg-white/10 dark:hover:bg-white/5 transition-colors"
 																	>
 																		<td class="px-6 py-4 whitespace-nowrap">
 																			<div class="flex items-center">
@@ -472,15 +627,16 @@
 																					<svg
 																						class="h-5 w-5 {icon.color}"
 																						fill="none"
-																						stroke="currentColor"
-																						viewBox="0 0 24 24"
+																						viewBox={icon.viewBox}
+																						xmlns="http://www.w3.org/2000/svg"
 																					>
-																						<path
-																							stroke-linecap="round"
-																							stroke-linejoin="round"
-																							stroke-width="2"
-																							d={icon.path}
-																						/>
+																						{#each icon.elements as element}
+																							{#if element.type === 'path'}
+																								<path {...element.attrs} />
+																							{:else if element.type === 'text'}
+																								<text {...element.attrs}>{element.text}</text>
+																							{/if}
+																						{/each}
 																					</svg>
 																				</div>
 																				<div class="ml-4">
@@ -497,7 +653,7 @@
 																		</td>
 																		<td class="px-6 py-4 whitespace-nowrap">
 																			<span
-																				class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200"
+																				class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gray-100/50 dark:bg-gray-700/50 text-gray-800 dark:text-gray-200 backdrop-blur-sm"
 																			>
 																				{file.file_type_name}
 																			</span>
@@ -587,7 +743,7 @@
 			{:else}
 				<div class="px-6 py-12 text-center">
 					<div
-						class="w-16 h-16 bg-gray-50 dark:bg-gray-800 rounded-full flex items-center justify-center mx-auto mb-4"
+						class="w-16 h-16 bg-gray-50/50 dark:bg-gray-800/50 rounded-full flex items-center justify-center mx-auto mb-4 backdrop-blur-sm"
 					>
 						<svg
 							class="w-8 h-8 text-gray-400 dark:text-gray-500"

@@ -30,6 +30,26 @@ on the technical specifications. All phases have been completed and the system i
 
 ---
 
+## **🎨 Glassmorphism Design Guidelines**
+
+**IMPORTANT:** All UI components must adhere to the Glassmorphism design system. Do not use flat solid backgrounds for main containers.
+
+**CSS Utility Classes (defined in `app.css`):**
+
+- **`.glass`**: Base glass effect (translucent background, blur, border). Use for static containers.
+- **`.glass-card`**: Interactive glass element. Use for clickable cards (adds hover lift and glow).
+- **`.glass-input`**: Styled form inputs with semi-transparent background.
+- **`.glass-btn`**: Primary action buttons with glass feel.
+
+**Design Rules:**
+
+1.  **Backgrounds:** Ensure the global gradient background is visible behind glass elements.
+2.  **Hierarchy:** Use `bg-white/20` vs `bg-white/30` to create depth between layers.
+3.  **Text Contrast:** Ensure text remains readable on translucent backgrounds. Use `text-gray-800` (light) and `text-gray-100` (dark).
+4.  **Borders:** Always include a subtle 1px border (`border-white/30` or `border-white/10`) to define edges.
+
+---
+
 ## **🔧 Git Commit Guidelines**
 
 When generating git commits, follow these rules:

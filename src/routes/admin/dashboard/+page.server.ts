@@ -1,5 +1,5 @@
 import type { PageServerLoad } from './$types';
-import { createSlug, getClasses } from '$lib/server/db';
+import { createSlug, getClasses, getDashboardStats } from '$lib/server/db';
 
 export const load: PageServerLoad = async ({ platform }) => {
 	if (!platform?.env?.DB) {
@@ -7,7 +7,10 @@ export const load: PageServerLoad = async ({ platform }) => {
 	}
 
 	try {
-		const classes = await getClasses(platform.env.DB);
+		const [classes, stats] = await Promise.all([
+			getClasses(platform.env.DB),
+			getDashboardStats(platform.env.DB),
+		]);
 
 		// Add slug to each class for routing
 		const classesWithSlugs = classes.map((cls) => ({
@@ -17,9 +20,10 @@ export const load: PageServerLoad = async ({ platform }) => {
 
 		return {
 			classes: classesWithSlugs,
+			stats,
 		};
 	} catch (error) {
-		console.error('Failed to load classes:', error);
-		throw new Error('Failed to load classes');
+		console.error('Failed to load dashboard data:', error);
+		throw new Error('Failed to load dashboard data');
 	}
 };

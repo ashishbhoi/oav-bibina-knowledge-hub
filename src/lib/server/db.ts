@@ -388,3 +388,21 @@ export async function getAllNotes(db: any): Promise<any[]> {
 		return results || [];
 	}, 'Failed to fetch all notes');
 }
+
+export async function getDashboardStats(db: any): Promise<{
+	totalClasses: number;
+	totalSubjects: number;
+	totalFiles: number;
+}> {
+	return safeDbQuery(async () => {
+		const classesCount = await db.prepare('SELECT COUNT(*) as count FROM Classes').first();
+		const subjectsCount = await db.prepare('SELECT COUNT(*) as count FROM Subjects').first();
+		const filesCount = await db.prepare('SELECT COUNT(*) as count FROM Notes').first();
+
+		return {
+			totalClasses: classesCount?.count || 0,
+			totalSubjects: subjectsCount?.count || 0,
+			totalFiles: filesCount?.count || 0,
+		};
+	}, 'Failed to fetch dashboard stats');
+}

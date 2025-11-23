@@ -23,13 +23,13 @@
 </svelte:head>
 
 <div
-	class="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900 py-12 px-4 sm:px-6 lg:px-8 transition-colors duration-200"
+	class="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 transition-colors duration-200"
 >
 	<div class="absolute top-4 right-4">
 		<ThemeToggle />
 	</div>
 
-	<div class="max-w-md w-full space-y-8">
+	<div class="max-w-md w-full space-y-8 glass-card">
 		<div class="flex flex-col items-center">
 			<div
 				class="w-16 h-16 bg-brand-blue rounded-2xl flex items-center justify-center text-white text-2xl font-bold mb-4 shadow-lg shadow-brand-blue/20"
@@ -57,10 +57,10 @@
 			}}
 		>
 			<div class="rounded-md shadow-sm -space-y-px">
-				<div>
+				<div class="mb-4">
 					<label class="sr-only" for="username">Username</label>
 					<input
-						class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 dark:border-gray-700 placeholder-gray-500 dark:placeholder-gray-400 text-gray-900 dark:text-white bg-white dark:bg-gray-800 rounded-t-md focus:outline-none focus:ring-brand-blue focus:border-brand-blue focus:z-10 sm:text-sm transition-colors"
+						class="glass-input w-full"
 						id="username"
 						name="username"
 						placeholder="Username"
@@ -72,7 +72,7 @@
 				<div>
 					<label class="sr-only" for="password">Password</label>
 					<input
-						class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 dark:border-gray-700 placeholder-gray-500 dark:placeholder-gray-400 text-gray-900 dark:text-white bg-white dark:bg-gray-800 rounded-b-md focus:outline-none focus:ring-brand-blue focus:border-brand-blue focus:z-10 sm:text-sm transition-colors"
+						class="glass-input w-full"
 						id="password"
 						name="password"
 						placeholder="Password"

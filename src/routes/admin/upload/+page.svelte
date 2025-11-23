@@ -365,401 +365,335 @@
 	<meta name="robots" content="noindex, nofollow" />
 </svelte:head>
 
-<div class="min-h-screen bg-gray-50 dark:bg-gray-900 py-8">
+<div class="min-h-screen py-8">
 	<!-- Header -->
 	<div class="mb-8">
-		<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 dark:bg-gray-800">
+		<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
 			<div
 				class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 sm:gap-0"
 			>
 				<div>
-					<h1 class="text-3xl font-bold text-gray-900 dark:text-gray-100">Upload File</h1>
-					<p class="text-gray-600 mt-2 dark:text-gray-400">
+					<h1 class="text-3xl font-bold text-gray-900 dark:text-white">Upload File</h1>
+					<p class="mt-2 text-gray-600 dark:text-gray-400">
 						Add new study materials to the knowledge hub
 					</p>
 				</div>
-				<a
-					class="bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-100 px-4 py-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors font-medium w-full sm:w-auto text-center"
-					href="/admin/dashboard"
-				>
-					Cancel
+				<a class="glass-btn-secondary inline-flex items-center" href="/admin/dashboard">
+					← Back to Dashboard
 				</a>
 			</div>
 		</div>
 	</div>
 
-	<!-- Main Content -->
-	<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-		<!-- Success Message -->
-		{#if uploadSuccess}
-			<div
-				class="bg-green-50 border border-green-200 text-green-800 px-6 py-4 rounded-xl mb-8 flex items-center shadow-sm"
-			>
-				<div class="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center mr-3">
-					<svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"
-						></path>
-					</svg>
-				</div>
-				<div>
-					<strong class="block font-semibold">Success!</strong>
-					<span class="text-sm"
-						>File uploaded successfully! You can now view it in the file manager.</span
-					>
-				</div>
-				<button
-					onclick={() => (uploadSuccess = false)}
-					class="ml-auto text-green-600 hover:text-green-800"
-					aria-label="Dismiss success message"
-				>
-					<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-						<path
-							stroke-linecap="round"
-							stroke-linejoin="round"
-							stroke-width="2"
-							d="M6 18L18 6M6 6l12 12"
-						></path>
-					</svg>
-				</button>
-			</div>
-		{/if}
-
-		<!-- Error Message -->
-		{#if uploadError}
-			<div
-				class="bg-red-50 border border-red-200 text-red-800 px-6 py-4 rounded-xl mb-8 flex items-center shadow-sm"
-			>
-				<div class="w-8 h-8 bg-red-100 rounded-full flex items-center justify-center mr-3">
-					<svg class="w-5 h-5 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-						<path
-							stroke-linecap="round"
-							stroke-linejoin="round"
-							stroke-width="2"
-							d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-						></path>
-					</svg>
-				</div>
-				<div>
-					<strong class="block font-semibold">Error</strong>
-					<span class="text-sm">{uploadError}</span>
-				</div>
-				<button
-					onclick={() => (uploadError = '')}
-					class="ml-auto text-red-600 hover:text-red-800"
-					aria-label="Dismiss error message"
-				>
-					<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-						<path
-							stroke-linecap="round"
-							stroke-linejoin="round"
-							stroke-width="2"
-							d="M6 18L18 6M6 6l12 12"
-						></path>
-					</svg>
-				</button>
-			</div>
-		{/if}
-
-		<!-- Upload Form -->
-		<div
-			class="bg-white dark:bg-gray-800 shadow-sm border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden"
+	<!-- Upload Card -->
+	<div class="glass-card">
+		<form
+			class="p-6 md:p-8"
+			onsubmit={(e) => {
+				e.preventDefault();
+				uploadFile();
+			}}
 		>
-			<div class="p-6 md:p-8">
-				<h2 class="text-xl font-semibold text-gray-900 dark:text-white mb-6">File Details</h2>
+			<h2 class="text-xl font-semibold text-gray-900 dark:text-white mb-6">File Details</h2>
 
-				<!-- File Selection -->
-				<div class="mb-8">
-					<label
-						class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
-						for="file-input"
-					>
-						Upload Document *
-					</label>
+			<!-- File Selection -->
+			<div class="mb-8">
+				<label
+					class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+					for="file-input"
+				>
+					Upload Document *
+				</label>
 
-					<!-- Drag and Drop Area -->
-					<div
-						class="relative border-2 border-dashed rounded-xl p-8 text-center transition-all duration-200 {isDragging
-							? 'border-brand-blue bg-blue-50 dark:bg-blue-900/20'
-							: 'border-gray-300 dark:border-gray-600 hover:border-gray-400 dark:hover:border-gray-50 hover:bg-gray-50 dark:hover:bg-gray-700/50'}"
-						ondragover={handleDragOver}
-						ondragleave={handleDragLeave}
-						ondrop={handleDrop}
-						onkeydown={(e) => {
-							if (e.key === 'Enter' || e.key === ' ') {
-								e.preventDefault();
-								document.getElementById('file-input')?.click();
-							}
-						}}
-						role="button"
-						tabindex="0"
-					>
-						{#if selectedFile}
-							<div class="text-gray-900 dark:text-white">
-								<div
-									class="w-16 h-16 bg-blue-100 dark:bg-blue-900/30 rounded-xl flex items-center justify-center mx-auto mb-4"
+				<!-- Drag and Drop Area -->
+				<div
+					class="relative border-2 border-dashed rounded-xl p-8 text-center transition-all duration-200 {isDragging
+						? 'border-brand-blue bg-blue-50/50 dark:bg-blue-900/10'
+						: 'border-gray-300/50 dark:border-gray-600/50 hover:border-gray-400/70 dark:hover:border-gray-500 hover:bg-white/10 dark:hover:bg-white/5'}"
+					ondragover={handleDragOver}
+					ondragleave={handleDragLeave}
+					ondrop={handleDrop}
+					onkeydown={(e) => {
+						if (e.key === 'Enter' || e.key === ' ') {
+							e.preventDefault();
+							document.getElementById('file-input')?.click();
+						}
+					}}
+					role="button"
+					tabindex="0"
+				>
+					{#if selectedFile}
+						<div class="text-gray-900 dark:text-white">
+							<div
+								class="w-16 h-16 bg-blue-100/50 dark:bg-blue-900/30 rounded-xl flex items-center justify-center mx-auto mb-4 backdrop-blur-sm"
+							>
+								<svg
+									class="w-8 h-8 text-brand-blue"
+									fill="none"
+									stroke="currentColor"
+									viewBox="0 0 24 24"
 								>
-									<svg
-										class="w-8 h-8 text-brand-blue"
-										fill="none"
-										stroke="currentColor"
-										viewBox="0 0 24 24"
-									>
-										<path
-											stroke-linecap="round"
-											stroke-linejoin="round"
-											stroke-width="2"
-											d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
-										></path>
-									</svg>
-								</div>
-								<p class="text-lg font-medium mb-1">{selectedFile.name}</p>
-								<p class="text-sm text-gray-500 dark:text-gray-400 mb-4">
-									{(selectedFile.size / 1024 / 1024).toFixed(2)} MB
-								</p>
+									<path
+										stroke-linecap="round"
+										stroke-linejoin="round"
+										stroke-width="2"
+										d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+									></path>
+								</svg>
+							</div>
+							<p class="text-lg font-medium mb-1">{selectedFile.name}</p>
+							<p class="text-sm text-gray-500 dark:text-gray-400 mb-4">
+								{(selectedFile.size / 1024 / 1024).toFixed(2)} MB
+							</p>
+							<button
+								type="button"
+								onclick={(e) => {
+									e.stopPropagation();
+									selectedFile = null;
+									displayName = '';
+								}}
+								class="text-red-600 hover:text-red-700 text-sm font-medium"
+							>
+								Remove File
+							</button>
+						</div>
+					{:else}
+						<div class="pointer-events-none">
+							<div
+								class="w-16 h-16 bg-gray-100/50 dark:bg-gray-700/50 rounded-xl flex items-center justify-center mx-auto mb-4 backdrop-blur-sm"
+							>
+								<svg
+									class="w-8 h-8 text-gray-400 dark:text-gray-300"
+									fill="none"
+									stroke="currentColor"
+									viewBox="0 0 24 24"
+								>
+									<path
+										stroke-linecap="round"
+										stroke-linejoin="round"
+										stroke-width="2"
+										d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
+									></path>
+								</svg>
+							</div>
+							<p class="text-lg font-medium text-gray-900 dark:text-white mb-1">
 								<button
 									type="button"
-									onclick={(e) => {
-										e.stopPropagation();
-										selectedFile = null;
-										displayName = '';
-									}}
-									class="text-red-600 hover:text-red-700 text-sm font-medium"
+									onclick={() => document.getElementById('file-input')?.click()}
+									class="text-brand-blue hover:text-blue-700 font-semibold pointer-events-auto"
 								>
-									Remove File
+									Click to upload
 								</button>
-							</div>
-						{:else}
-							<div class="pointer-events-none">
-								<div
-									class="w-16 h-16 bg-gray-100 dark:bg-gray-700 rounded-xl flex items-center justify-center mx-auto mb-4"
-								>
-									<svg
-										class="w-8 h-8 text-gray-400 dark:text-gray-300"
-										fill="none"
-										stroke="currentColor"
-										viewBox="0 0 24 24"
-									>
-										<path
-											stroke-linecap="round"
-											stroke-linejoin="round"
-											stroke-width="2"
-											d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
-										></path>
-									</svg>
-								</div>
-								<p class="text-lg font-medium text-gray-900 dark:text-white mb-1">
-									<button
-										type="button"
-										onclick={() => document.getElementById('file-input')?.click()}
-										class="text-brand-blue hover:text-blue-700 font-semibold pointer-events-auto"
-									>
-										Click to upload
-									</button>
-									or drag and drop
-								</p>
-								<p class="text-sm text-gray-500 dark:text-gray-400">
-									PDF, DOC, PPT, XLS, Images (max 50MB)
-								</p>
-							</div>
-						{/if}
-					</div>
+								or drag and drop
+							</p>
+							<p class="text-sm text-gray-500 dark:text-gray-400">
+								PDF, DOC, PPT, XLS, Images (max 50MB)
+							</p>
+						</div>
+					{/if}
+				</div>
 
+				<input
+					accept=".pdf,.doc,.docx,.ppt,.pptx,.xls,.xlsx,.txt,.jpg,.jpeg,.png"
+					class="hidden"
+					id="file-input"
+					onchange={handleFileSelect}
+					type="file"
+				/>
+			</div>
+
+			<!-- Form Fields -->
+			<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+				<!-- Display Name -->
+				<div class="md:col-span-2">
+					<label
+						class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+						for="display_name"
+					>
+						Display Name *
+					</label>
 					<input
-						accept=".pdf,.doc,.docx,.ppt,.pptx,.xls,.xlsx,.txt,.jpg,.jpeg,.png"
-						class="hidden"
-						id="file-input"
-						onchange={handleFileSelect}
-						type="file"
+						bind:value={displayName}
+						class="glass-input w-full border border-gray-300/50 dark:border-gray-600/50 rounded-lg px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-brand-blue/20 focus:border-brand-blue transition-all text-gray-900 dark:text-white"
+						id="display_name"
+						placeholder="e.g., Chapter 1: Introduction to Science"
+						required
+						type="text"
 					/>
 				</div>
 
-				<!-- Form Fields -->
-				<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-					<!-- Display Name -->
-					<div class="md:col-span-2">
-						<label
-							class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
-							for="display_name"
-						>
-							Display Name *
-						</label>
-						<input
-							bind:value={displayName}
-							class="w-full border border-gray-300 dark:border-gray-600 rounded-lg px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-brand-blue/20 focus:border-brand-blue transition-all bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
-							id="display_name"
-							placeholder="e.g., Chapter 1: Introduction to Science"
-							required
-							type="text"
-						/>
-					</div>
-
-					<!-- Class Selection -->
-					<div>
-						<label
-							class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
-							for="class_id"
-						>
-							Class *
-						</label>
-						<div class="relative">
-							<select
-								bind:value={selectedClass}
-								class="w-full border border-gray-300 dark:border-gray-600 rounded-lg px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-brand-blue/20 focus:border-brand-blue appearance-none bg-white dark:bg-gray-700 text-gray-900 dark:text-white transition-all"
-								id="class_id"
-								onchange={handleClassChange}
-								required
-							>
-								<option value="">Select Class</option>
-								{#each data.classes as cls}
-									<option value={cls.id.toString()}>{cls.name}</option>
-								{/each}
-							</select>
-							<div class="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
-								<svg
-									class="w-5 h-5 text-gray-400 dark:text-gray-300"
-									fill="none"
-									stroke="currentColor"
-									viewBox="0 0 24 24"
-								>
-									<path
-										stroke-linecap="round"
-										stroke-linejoin="round"
-										stroke-width="2"
-										d="M19 9l-7 7-7-7"
-									></path>
-								</svg>
-							</div>
-						</div>
-					</div>
-
-					<!-- Subject Selection -->
-					<div>
-						<label
-							class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
-							for="subject_id"
-						>
-							Subject *
-						</label>
-						<div class="relative">
-							<select
-								bind:value={selectedSubject}
-								class="w-full border border-gray-300 dark:border-gray-600 rounded-lg px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-brand-blue/20 focus:border-brand-blue disabled:opacity-50 disabled:bg-gray-50 dark:disabled:bg-gray-700 appearance-none bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
-								disabled={!selectedClass || availableSubjects.length === 0}
-								id="subject_id"
-								required
-							>
-								<option value="">Select Subject</option>
-								{#each availableSubjects as subject}
-									<option value={subject.id.toString()}>{subject.name}</option>
-								{/each}
-							</select>
-							<div class="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
-								<svg
-									class="w-5 h-5 text-gray-400 dark:text-gray-300"
-									fill="none"
-									stroke="currentColor"
-									viewBox="0 0 24 24"
-								>
-									<path
-										stroke-linecap="round"
-										stroke-linejoin="round"
-										stroke-width="2"
-										d="M19 9l-7 7-7-7"
-									></path>
-								</svg>
-							</div>
-						</div>
-						{#if selectedClass && availableSubjects.length === 0}
-							<p class="text-xs text-red-500 mt-1">No subjects found for this class.</p>
-						{/if}
-					</div>
-
-					<!-- File Type Selection -->
-					<div class="md:col-span-2">
-						<label
-							class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
-							for="file_type_id"
-						>
-							File Type *
-						</label>
-						<div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
-							{#each data.fileTypes as fileType}
-								<label class="cursor-pointer">
-									<input
-										type="radio"
-										name="file_type"
-										value={fileType.id.toString()}
-										bind:group={selectedFileType}
-										class="peer sr-only"
-									/>
-									<div
-										class="border border-gray-200 dark:border-gray-700 rounded-lg p-3 text-center hover:bg-gray-50 dark:hover:bg-gray-700/50 peer-checked:border-brand-blue peer-checked:bg-blue-50 dark:peer-checked:bg-blue-900/20 peer-checked:text-brand-blue transition-all text-gray-900 dark:text-white"
-									>
-										<span class="text-sm font-medium">{fileType.name}</span>
-									</div>
-								</label>
-							{/each}
-						</div>
-					</div>
-				</div>
-
-				<!-- Upload Progress -->
-				{#if isUploading}
-					<div class="mb-8">
-						<div class="flex items-center justify-between mb-2">
-							<span class="text-sm font-medium text-gray-700 dark:text-gray-300">Uploading...</span>
-							<span class="text-sm text-gray-500 dark:text-gray-400">{uploadProgress}%</span>
-						</div>
-						<div class="w-full bg-gray-100 dark:bg-gray-700 rounded-full h-2.5 overflow-hidden">
-							<div
-								class="bg-brand-blue h-2.5 rounded-full transition-all duration-300 ease-out"
-								style="width: {uploadProgress}%"
-							></div>
-						</div>
-					</div>
-				{/if}
-
-				<!-- Upload Button -->
-				<div class="flex justify-end pt-6 border-t border-gray-100 dark:border-gray-700">
-					<button
-						class="bg-brand-blue text-white px-8 py-3 rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-sm hover:shadow font-medium flex items-center"
-						disabled={isUploading ||
-							!selectedFile ||
-							!selectedClass ||
-							!selectedSubject ||
-							!selectedFileType ||
-							!displayName.trim()}
-						onclick={uploadFile}
-						type="button"
+				<!-- Class Selection -->
+				<div>
+					<label
+						class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+						for="class_id"
 					>
-						{#if isUploading}
+						Class *
+					</label>
+					<div class="relative">
+						<select
+							bind:value={selectedClass}
+							class="glass-input w-full border border-gray-300/50 dark:border-gray-600/50 rounded-lg px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-brand-blue/20 focus:border-brand-blue appearance-none text-gray-900 dark:text-white transition-all"
+							id="class_id"
+							onchange={handleClassChange}
+							required
+						>
+							<option value="" class="bg-white dark:bg-gray-800">Select Class</option>
+							{#each data.classes as cls}
+								<option value={cls.id.toString()} class="bg-white dark:bg-gray-800"
+									>{cls.name}</option
+								>
+							{/each}
+						</select>
+						<div class="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
 							<svg
-								class="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
-								xmlns="http://www.w3.org/2000/svg"
+								class="w-5 h-5 text-gray-400 dark:text-gray-300"
 								fill="none"
+								stroke="currentColor"
 								viewBox="0 0 24 24"
 							>
-								<circle
-									class="opacity-25"
-									cx="12"
-									cy="12"
-									r="10"
-									stroke="currentColor"
-									stroke-width="4"
-								></circle>
 								<path
-									class="opacity-75"
-									fill="currentColor"
-									d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									stroke-width="2"
+									d="M19 9l-7 7-7-7"
 								></path>
 							</svg>
-							Uploading...
-						{:else}
-							Upload File
-						{/if}
-					</button>
+						</div>
+					</div>
+				</div>
+
+				<!-- Subject Selection -->
+				<div>
+					<label
+						class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+						for="subject_id"
+					>
+						Subject *
+					</label>
+					<div class="relative">
+						<select
+							bind:value={selectedSubject}
+							class="glass-input w-full border border-gray-300/50 dark:border-gray-600/50 rounded-lg px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-brand-blue/20 focus:border-brand-blue disabled:opacity-50 disabled:bg-gray-50/50 dark:disabled:bg-gray-700/50 appearance-none text-gray-900 dark:text-white"
+							disabled={!selectedClass || availableSubjects.length === 0}
+							id="subject_id"
+							required
+						>
+							<option value="" class="bg-white dark:bg-gray-800">Select Subject</option>
+							{#each availableSubjects as subject}
+								<option value={subject.id.toString()} class="bg-white dark:bg-gray-800"
+									>{subject.name}</option
+								>
+							{/each}
+						</select>
+						<div class="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
+							<svg
+								class="w-5 h-5 text-gray-400 dark:text-gray-300"
+								fill="none"
+								stroke="currentColor"
+								viewBox="0 0 24 24"
+							>
+								<path
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									stroke-width="2"
+									d="M19 9l-7 7-7-7"
+								></path>
+							</svg>
+						</div>
+					</div>
+					{#if selectedClass && availableSubjects.length === 0}
+						<p class="text-xs text-red-500 mt-1">No subjects found for this class.</p>
+					{/if}
+				</div>
+
+				<!-- File Type Selection -->
+				<div class="md:col-span-2">
+					<label
+						class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+						for="file_type_id"
+					>
+						File Type *
+					</label>
+					<div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
+						{#each data.fileTypes as fileType}
+							<label class="cursor-pointer">
+								<input
+									type="radio"
+									name="file_type"
+									value={fileType.id.toString()}
+									bind:group={selectedFileType}
+									class="peer sr-only"
+								/>
+								<div
+									class="border border-gray-200/50 dark:border-gray-700/50 rounded-lg p-3 text-center hover:bg-white/10 dark:hover:bg-white/5 peer-checked:border-brand-blue peer-checked:bg-blue-50/50 dark:peer-checked:bg-blue-900/20 peer-checked:text-brand-blue transition-all text-gray-900 dark:text-white backdrop-blur-sm"
+								>
+									<span class="text-sm font-medium">{fileType.name}</span>
+								</div>
+							</label>
+						{/each}
+					</div>
 				</div>
 			</div>
-		</div>
-	</main>
+
+			<!-- Upload Progress -->
+			{#if isUploading}
+				<div class="mb-8">
+					<div class="flex items-center justify-between mb-2">
+						<span class="text-sm font-medium text-gray-700 dark:text-gray-300">Uploading...</span>
+						<span class="text-sm text-gray-500 dark:text-gray-400">{uploadProgress}%</span>
+					</div>
+					<div
+						class="w-full bg-gray-100/50 dark:bg-gray-700/50 rounded-full h-2.5 overflow-hidden backdrop-blur-sm"
+					>
+						<div
+							class="bg-brand-blue h-2.5 rounded-full transition-all duration-300 ease-out"
+							style="width: {uploadProgress}%"
+						></div>
+					</div>
+				</div>
+			{/if}
+
+			<!-- Upload Button -->
+			<div class="flex justify-end pt-6 border-t border-gray-100/30 dark:border-gray-700/30">
+				<button
+					class="glass-btn px-8 py-3 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-sm hover:shadow font-medium flex items-center"
+					disabled={isUploading ||
+						!selectedFile ||
+						!selectedClass ||
+						!selectedSubject ||
+						!selectedFileType ||
+						!displayName.trim()}
+					onclick={uploadFile}
+					type="button"
+				>
+					{#if isUploading}
+						<svg
+							class="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
+							xmlns="http://www.w3.org/2000/svg"
+							fill="none"
+							viewBox="0 0 24 24"
+						>
+							<circle
+								class="opacity-25"
+								cx="12"
+								cy="12"
+								r="10"
+								stroke="currentColor"
+								stroke-width="4"
+							></circle>
+							<path
+								class="opacity-75"
+								fill="currentColor"
+								d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+							></path>
+						</svg>
+						Uploading...
+					{:else}
+						Upload File
+					{/if}
+				</button>
+			</div>
+		</form>
+	</div>
 </div>
