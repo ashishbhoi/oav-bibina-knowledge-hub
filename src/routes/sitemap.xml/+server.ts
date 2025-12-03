@@ -1,5 +1,5 @@
 import type { RequestHandler } from './$types';
-import { createSlug, getClasses, getSubjectsByClassId } from '$lib/server/db';
+import { createSlug, getClasses, getSubjectsByClassId, getAllNotes } from '$lib/server/db';
 
 export const GET: RequestHandler = async ({ platform, url }) => {
 	if (!platform?.env?.DB) {
@@ -8,6 +8,7 @@ export const GET: RequestHandler = async ({ platform, url }) => {
 
 	try {
 		const classes = await getClasses(platform.env.DB);
+		const allNotes = await getAllNotes(platform.env.DB);
 		const baseUrl = url.origin;
 
 		// Get current date for lastmod
@@ -48,6 +49,21 @@ export const GET: RequestHandler = async ({ platform, url }) => {
         <priority>0.6</priority>
     </url>`;
 			}
+		}
+
+		// Add file download pages (PDFs, etc.)
+		for (const note of allNotes) {
+			// Use the uploaded_at date if available, otherwise current date
+			const noteDate = note.uploaded_at
+				? new Date(note.uploaded_at).toISOString().split('T')[0]
+				: currentDate;
+			sitemap += `
+    <url>
+        <loc>${baseUrl}/download/${note.id}</loc>
+        <lastmod>${noteDate}</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.5</priority>
+    </url>`;
 		}
 
 		sitemap += `

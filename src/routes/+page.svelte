@@ -21,6 +21,14 @@
 		name="description"
 		content="Browse and access academic materials for different classes. Choose your class to view subjects and study notes."
 	/>
+	<meta property="og:title" content="OAV Bibina Knowledge Hub - Select Your Class" />
+	<meta
+		property="og:description"
+		content="Browse and access academic materials for different classes. Choose your class to view subjects and study notes."
+	/>
+	<meta property="og:type" content="website" />
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta name="robots" content="index, follow" />
 </svelte:head>
 
 <div class="min-h-screen flex flex-col">
@@ -91,7 +99,13 @@
 								<div
 									class="w-8 h-8 rounded-full bg-white/50 dark:bg-gray-700/50 flex items-center justify-center text-gray-400 group-hover:text-brand-blue transition-colors"
 								>
-									<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+									<svg
+										class="w-4 h-4"
+										fill="none"
+										stroke="currentColor"
+										viewBox="0 0 24 24"
+										aria-hidden="true"
+									>
 										<path
 											stroke-linecap="round"
 											stroke-linejoin="round"

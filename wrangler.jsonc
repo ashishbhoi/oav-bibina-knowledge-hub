@@ -38,6 +38,8 @@
 	 */
 	"vars": {
 		"NODE_ENV": "production",
+		"R2_CUSTOM_DOMAIN": "files-oav.akbhoi.com",
+		"R2_BUCKET_NAME": "oav-knowledge-hub-files",
 	},
 	/**
 	 * Smart Placement

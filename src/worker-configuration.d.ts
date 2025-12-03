@@ -7,6 +7,8 @@ declare namespace Cloudflare {
 		R2_ACCOUNT_ID: 'your-cloudflare-account-id';
 		R2_ACCESS_KEY_ID: 'your-r2-access-key-id';
 		R2_SECRET_ACCESS_KEY: 'your-r2-secret-access-key';
+		R2_CUSTOM_DOMAIN: string;
+		R2_BUCKET_NAME: string;
 		BUCKET: R2Bucket;
 		DB: D1Database;
 		ASSETS: Fetcher;

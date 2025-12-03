@@ -478,6 +478,7 @@
 							stroke="currentColor"
 							viewBox="0 0 24 24"
 							xmlns="http://www.w3.org/2000/svg"
+							aria-hidden="true"
 						>
 							<path
 								d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
@@ -521,6 +522,7 @@
 											fill="none"
 											stroke="currentColor"
 											viewBox="0 0 24 24"
+											aria-hidden="true"
 										>
 											<path
 												stroke-linecap="round"
@@ -563,6 +565,7 @@
 														fill="none"
 														stroke="currentColor"
 														viewBox="0 0 24 24"
+														aria-hidden="true"
 													>
 														<path
 															stroke-linecap="round"
@@ -629,6 +632,7 @@
 																						fill="none"
 																						viewBox={icon.viewBox}
 																						xmlns="http://www.w3.org/2000/svg"
+																						aria-hidden="true"
 																					>
 																						{#each icon.elements as element}
 																							{#if element.type === 'path'}
@@ -677,6 +681,7 @@
 																						fill="none"
 																						stroke="currentColor"
 																						viewBox="0 0 24 24"
+																						aria-hidden="true"
 																					>
 																						<path
 																							stroke-linecap="round"
@@ -696,6 +701,7 @@
 																						fill="none"
 																						stroke="currentColor"
 																						viewBox="0 0 24 24"
+																						aria-hidden="true"
 																					>
 																						<path
 																							stroke-linecap="round"
@@ -715,6 +721,7 @@
 																						fill="none"
 																						stroke="currentColor"
 																						viewBox="0 0 24 24"
+																						aria-hidden="true"
 																					>
 																						<path
 																							stroke-linecap="round"
@@ -750,6 +757,7 @@
 							fill="none"
 							stroke="currentColor"
 							viewBox="0 0 24 24"
+							aria-hidden="true"
 						>
 							<path
 								stroke-linecap="round"
@@ -928,6 +936,7 @@
 									xmlns="http://www.w3.org/2000/svg"
 									fill="none"
 									viewBox="0 0 24 24"
+									aria-hidden="true"
 								>
 									<circle
 										class="opacity-25"
@@ -967,7 +976,13 @@
 				<div
 					class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-red-100 dark:bg-red-900/30 mb-4"
 				>
-					<svg class="h-6 w-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+					<svg
+						class="h-6 w-6 text-red-600"
+						fill="none"
+						stroke="currentColor"
+						viewBox="0 0 24 24"
+						aria-hidden="true"
+					>
 						<path
 							stroke-linecap="round"
 							stroke-linejoin="round"

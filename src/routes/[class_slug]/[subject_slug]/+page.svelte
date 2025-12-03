@@ -265,6 +265,18 @@
 		content="Download notes and study materials for {data.subject.name} in {data.class
 			.name}. Access PDFs, documents, and other academic resources."
 	/>
+	<meta
+		property="og:title"
+		content="{data.subject.name} - {data.class.name} | OAV Bibina Knowledge Hub"
+	/>
+	<meta
+		property="og:description"
+		content="Download notes and study materials for {data.subject.name} in {data.class
+			.name}. Access PDFs, documents, and other academic resources."
+	/>
+	<meta property="og:type" content="website" />
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta name="robots" content="index, follow" />
 </svelte:head>
 
 <div class="min-h-screen flex flex-col">
@@ -280,7 +292,13 @@
 					<div
 						class="w-10 h-10 bg-white/50 dark:bg-gray-900/50 border-2 border-gray-200/50 dark:border-gray-700/50 rounded-xl flex items-center justify-center text-gray-500 dark:text-gray-400 group-hover:border-brand-blue group-hover:text-brand-blue transition-all"
 					>
-						<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+						<svg
+							class="w-6 h-6"
+							fill="none"
+							stroke="currentColor"
+							viewBox="0 0 24 24"
+							aria-hidden="true"
+						>
 							<path
 								stroke-linecap="round"
 								stroke-linejoin="round"
@@ -311,6 +329,7 @@
 								fill="currentColor"
 								viewBox="0 0 20 20"
 								xmlns="http://www.w3.org/2000/svg"
+								aria-hidden="true"
 								><path
 									d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"
 								></path></svg
@@ -329,6 +348,7 @@
 									fill="currentColor"
 									viewBox="0 0 20 20"
 									xmlns="http://www.w3.org/2000/svg"
+									aria-hidden="true"
 									><path
 										fill-rule="evenodd"
 										d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
@@ -348,6 +368,7 @@
 								fill="currentColor"
 								viewBox="0 0 20 20"
 								xmlns="http://www.w3.org/2000/svg"
+								aria-hidden="true"
 								><path
 									fill-rule="evenodd"
 									d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
@@ -391,6 +412,7 @@
 											fill="none"
 											stroke="currentColor"
 											viewBox={icon.viewBox}
+											aria-hidden="true"
 										>
 											{#each icon.elements as element}
 												{#if element.type === 'path'}
@@ -416,6 +438,7 @@
 										class="ml-4 p-2 text-gray-400 hover:text-brand-blue dark:text-gray-500 dark:hover:text-brand-blue transition-colors"
 										title="Download"
 										download
+										aria-label="Download {note.display_name}"
 									>
 										<svg
 											class="w-6 h-6"
@@ -423,6 +446,7 @@
 											stroke="currentColor"
 											viewBox="0 0 24 24"
 											xmlns="http://www.w3.org/2000/svg"
+											aria-hidden="true"
 											><path
 												stroke-linecap="round"
 												stroke-linejoin="round"
@@ -453,7 +477,13 @@
 	<!-- Back Button -->
 	<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-8">
 		<a class="glass-btn-secondary inline-flex items-center" href="/{createSlug(data.class.name)}">
-			<svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+			<svg
+				class="w-4 h-4 mr-2"
+				fill="none"
+				stroke="currentColor"
+				viewBox="0 0 24 24"
+				aria-hidden="true"
+			>
 				<path
 					d="M10 19l-7-7m0 0l7-7m-7 7h18"
 					stroke-linecap="round"

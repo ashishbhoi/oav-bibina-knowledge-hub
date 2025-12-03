@@ -34,7 +34,7 @@ export const POST: RequestHandler = async ({ request, platform }) => {
 
 		// Upload to R2
 		const command = new PutObjectCommand({
-			Bucket: 'oav-knowledge-hub-files',
+			Bucket: platform.env.R2_BUCKET_NAME || 'oav-knowledge-hub-files',
 			Key: key,
 			Body: buffer,
 			ContentType: file.type,
