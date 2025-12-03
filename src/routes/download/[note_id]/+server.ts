@@ -19,10 +19,10 @@ export const GET: RequestHandler = async ({ params, platform, request }) => {
 			throw error(404, 'Note not found');
 		}
 
-		// Check for bots (WhatsApp, Facebook, Twitter, etc.) to serve Open Graph metadata
+		// Check for bots (WhatsApp, Facebook, Twitter, etc.) and search engines (Google, Bing, etc.)
 		const userAgent = request.headers.get('user-agent')?.toLowerCase() || '';
 		const isBot =
-			/facebookexternalhit|twitterbot|linkedinbot|discordbot|slackbot|telegrambot|whatsapp|skypeuripreview/i.test(
+			/facebookexternalhit|twitterbot|linkedinbot|discordbot|slackbot|telegrambot|whatsapp|skypeuripreview|googlebot|bingbot|yandex|baiduspider|duckduckbot/i.test(
 				userAgent
 			);
 
@@ -61,6 +61,7 @@ export const GET: RequestHandler = async ({ params, platform, request }) => {
 			return new Response(html, {
 				headers: {
 					'content-type': 'text/html; charset=utf-8',
+					Vary: 'User-Agent',
 				},
 			});
 		}
