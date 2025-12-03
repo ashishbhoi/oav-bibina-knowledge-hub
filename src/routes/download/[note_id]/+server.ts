@@ -3,7 +3,7 @@ import { getNoteById } from '$lib/server/db';
 import { createR2Client, generateDownloadUrl } from '$lib/server/r2';
 import { error, redirect } from '@sveltejs/kit';
 
-export const GET: RequestHandler = async ({ params, platform }) => {
+export const GET: RequestHandler = async ({ params, platform, request }) => {
 	if (!platform?.env?.DB || !platform?.env?.BUCKET) {
 		throw error(500, 'Database or storage not available');
 	}
@@ -17,6 +17,53 @@ export const GET: RequestHandler = async ({ params, platform }) => {
 		const note = await getNoteById(platform.env.DB, noteId);
 		if (!note) {
 			throw error(404, 'Note not found');
+		}
+
+		// Check for bots (WhatsApp, Facebook, Twitter, etc.) and search engines (Google, Bing, etc.)
+		const userAgent = request.headers.get('user-agent')?.toLowerCase() || '';
+		const isBot =
+			/facebookexternalhit|twitterbot|linkedinbot|discordbot|slackbot|telegrambot|whatsapp|skypeuripreview|googlebot|bingbot|yandex|baiduspider|duckduckbot/i.test(
+				userAgent
+			);
+
+		if (isBot) {
+			const title = `${note.display_name} | ${note.subject_name}`;
+			const description = `Download ${note.file_type_name} for ${note.subject_name} (${note.class_name}).`;
+			const url = new URL(request.url).href;
+
+			const html = `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>${title}</title>
+    <meta name="description" content="${description}">
+    
+    <!-- Open Graph / Facebook / WhatsApp -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="${url}">
+    <meta property="og:title" content="${title}">
+    <meta property="og:description" content="${description}">
+    <meta property="og:site_name" content="OAV Bibina Knowledge Hub">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary">
+    <meta property="twitter:url" content="${url}">
+    <meta property="twitter:title" content="${title}">
+    <meta property="twitter:description" content="${description}">
+</head>
+<body>
+    <h1>${title}</h1>
+    <p>${description}</p>
+</body>
+</html>`;
+
+			return new Response(html, {
+				headers: {
+					'content-type': 'text/html; charset=utf-8',
+					Vary: 'User-Agent',
+				},
+			});
 		}
 
 		// Use environment variables for R2 credentials
