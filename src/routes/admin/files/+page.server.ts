@@ -80,7 +80,11 @@ export const actions = {
 
 				// Delete the old file from R2
 				try {
-					await deleteFile(r2Client, 'oav-knowledge-hub-files', oldNote.r2_object_key);
+					await deleteFile(
+						r2Client,
+						platform.env.R2_BUCKET_NAME || 'oav-knowledge-hub-files',
+						oldNote.r2_object_key
+					);
 				} catch (err) {
 					// Continue even if old file deletion fails
 				}
@@ -138,7 +142,11 @@ export const actions = {
 				platform.env.R2_SECRET_ACCESS_KEY
 			);
 
-			await deleteFile(r2Client, 'oav-knowledge-hub-files', note.r2_object_key);
+			await deleteFile(
+				r2Client,
+				platform.env.R2_BUCKET_NAME || 'oav-knowledge-hub-files',
+				note.r2_object_key
+			);
 
 			// Delete the database record
 			await deleteNote(platform.env.DB, id);

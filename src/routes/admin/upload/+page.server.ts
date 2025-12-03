@@ -115,7 +115,7 @@ export const actions: Actions = {
 			// Generate pre-signed upload URL
 			const { key, uploadUrl } = await generateUploadUrl(
 				r2Client,
-				'oav-knowledge-hub-files',
+				platform.env.R2_BUCKET_NAME || 'oav-knowledge-hub-files',
 				fileExtension
 			);
 

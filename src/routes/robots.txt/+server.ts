@@ -14,7 +14,6 @@ Disallow: /admin/*
 
 # Disallow API endpoints
 Disallow: /api/
-Disallow: /download/
 
 # Sitemap
 Sitemap: ${baseUrl}/sitemap.xml
