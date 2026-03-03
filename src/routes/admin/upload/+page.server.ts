@@ -1,5 +1,14 @@
 import type { Actions, PageServerLoad } from './$types';
-import { createNote, getClasses, getFileTypes, getSubjectsByClassId } from '$lib/server/db';
+import {
+	createNote,
+	getClasses,
+	getFileTypes,
+	getSubjectsByClassId,
+	getClassById,
+	getSubjectById,
+	getFileTypeById,
+	createSlug,
+} from '$lib/server/db';
 import { fail, json } from '@sveltejs/kit';
 import { z } from 'zod';
 import { v4 as uuidv4 } from 'uuid';
@@ -112,11 +121,37 @@ export const actions: Actions = {
 			// Get file extension
 			const fileExtension = getFileExtension(fileName);
 
+			// Extract metadata to generate slug
+			const classId = parseInt(formData.get('class_id')?.toString() || '0', 10);
+			const subjectId = parseInt(formData.get('subject_id')?.toString() || '0', 10);
+			const fileTypeId = parseInt(formData.get('file_type_id')?.toString() || '0', 10);
+			const displayName = formData.get('display_name')?.toString() || '';
+
+			let customKey: string | undefined;
+
+			// Check if we have all necessary metadata
+			if (classId && subjectId && fileTypeId && displayName) {
+				const [classData, subjectData, fileTypeData] = await Promise.all([
+					getClassById(platform.env.DB, classId),
+					getSubjectById(platform.env.DB, subjectId),
+					getFileTypeById(platform.env.DB, fileTypeId),
+				]);
+
+				if (classData && subjectData && fileTypeData) {
+					// Use timestamp to prevent collisions
+					const timestamp = Date.now();
+					// Format: Class-Subject-FileType-DisplayName-Timestamp.ext
+					const slug = `${createSlug(classData.name)}-${createSlug(subjectData.name)}-${createSlug(fileTypeData.name)}-${createSlug(displayName)}-${timestamp}`;
+					customKey = `${slug}.${fileExtension}`;
+				}
+			}
+
 			// Generate pre-signed upload URL
 			const { key, uploadUrl } = await generateUploadUrl(
 				r2Client,
 				platform.env.R2_BUCKET_NAME || 'oav-knowledge-hub-files',
-				fileExtension
+				fileExtension,
+				customKey
 			);
 
 			return {

@@ -40,6 +40,16 @@
 		data.preselectedSubjects || []
 	);
 
+	$effect(() => {
+		selectedClass = data.preselected.classId || '';
+		selectedSubject = data.preselected.subjectId || '';
+		selectedFileType = data.preselected.fileTypeId || '';
+		// Only update availableSubjects if we are navigating/resetting from data,
+		// otherwise user interaction might be controlling this.
+		// However, if data changes, we likely want to reset everything.
+		availableSubjects = data.preselectedSubjects || [];
+	});
+
 	interface UploadUrlResponse {
 		success: boolean;
 		uploadUrl?: string;
@@ -162,6 +172,10 @@
 				body: new URLSearchParams({
 					file_name: selectedFile.name,
 					file_size: selectedFile.size.toString(),
+					class_id: selectedClass,
+					subject_id: selectedSubject,
+					file_type_id: selectedFileType,
+					display_name: displayName,
 				}),
 			});
 
