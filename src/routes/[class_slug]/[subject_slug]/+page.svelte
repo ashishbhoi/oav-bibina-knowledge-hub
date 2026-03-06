@@ -1,5 +1,6 @@
 <script lang="ts">
 	import ThemeToggle from '$lib/components/ThemeToggle.svelte';
+	import { generateDownloadUrl, createSlug } from '$lib/index';
 	interface Props {
 		data: {
 			class: {
@@ -36,13 +37,6 @@
 
 	function toggleSection(fileType: string) {
 		expandedSections[fileType] = !expandedSections[fileType];
-	}
-
-	function createSlug(name: string): string {
-		return name
-			.toLowerCase()
-			.replace(/[^a-z0-9]+/g, '-')
-			.replace(/(^-|-$)/g, '');
 	}
 
 	type IconElement =
@@ -434,7 +428,7 @@
 										</p>
 									</div>
 									<a
-										href="/download/{note.id}"
+										href={generateDownloadUrl(note)}
 										class="ml-4 p-2 text-gray-400 hover:text-brand-blue dark:text-gray-500 dark:hover:text-brand-blue transition-colors"
 										title="Download"
 										download

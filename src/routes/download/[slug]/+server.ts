@@ -9,9 +9,13 @@ export const GET: RequestHandler = async ({ params, platform, request }) => {
 	}
 
 	try {
-		const noteId = parseInt(params.note_id);
+		// Extract note ID from the end of the slug (e.g., class-10-math-123 -> 123)
+		const slugParts = params.slug.split('-');
+		const noteIdStr = slugParts[slugParts.length - 1];
+		const noteId = parseInt(noteIdStr);
+
 		if (isNaN(noteId)) {
-			throw error(400, 'Invalid note ID');
+			throw error(400, 'Invalid note ID in URL');
 		}
 
 		const note = await getNoteById(platform.env.DB, noteId);
@@ -22,13 +26,13 @@ export const GET: RequestHandler = async ({ params, platform, request }) => {
 		// Check for bots (WhatsApp, Facebook, Twitter, etc.) and search engines (Google, Bing, etc.)
 		const userAgent = request.headers.get('user-agent')?.toLowerCase() || '';
 		const isBot =
-			/facebookexternalhit|twitterbot|linkedinbot|discordbot|slackbot|telegrambot|whatsapp|skypeuripreview|googlebot|bingbot|yandex|baiduspider|duckduckbot/i.test(
+			/facebookexternalhit|twitterbot|linkedinbot|discordbot|slackbot|telegrambot|whatsapp|skypeuripreview|googlebot|bingbot|yandex|baiduspider|duckduckbot|vkshare/i.test(
 				userAgent
 			);
 
 		if (isBot) {
-			const title = `${note.display_name} | ${note.subject_name}`;
-			const description = `Download ${note.file_type_name} for ${note.subject_name} (${note.class_name}).`;
+			const title = `${note.display_name} - ${note.subject_name} (${note.class_name})`;
+			const description = `Download ${note.file_type_name} for ${note.subject_name} | OAV Bibina Knowledge Hub`;
 			const url = new URL(request.url).href;
 
 			const html = `
@@ -40,21 +44,26 @@ export const GET: RequestHandler = async ({ params, platform, request }) => {
     <meta name="description" content="${description}">
     
     <!-- Open Graph / Facebook / WhatsApp -->
-    <meta property="og:type" content="website">
+    <meta property="og:type" content="article">
     <meta property="og:url" content="${url}">
     <meta property="og:title" content="${title}">
     <meta property="og:description" content="${description}">
     <meta property="og:site_name" content="OAV Bibina Knowledge Hub">
+    <meta property="article:section" content="${note.class_name}">
+    <meta property="article:tag" content="${note.subject_name}">
+    <meta property="article:tag" content="${note.file_type_name}">
     
     <!-- Twitter -->
-    <meta property="twitter:card" content="summary">
-    <meta property="twitter:url" content="${url}">
-    <meta property="twitter:title" content="${title}">
-    <meta property="twitter:description" content="${description}">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="${title}">
+    <meta name="twitter:description" content="${description}">
 </head>
 <body>
     <h1>${title}</h1>
     <p>${description}</p>
+    <p>Class: ${note.class_name}</p>
+    <p>Subject: ${note.subject_name}</p>
+    <p>Type: ${note.file_type_name}</p>
 </body>
 </html>`;
 

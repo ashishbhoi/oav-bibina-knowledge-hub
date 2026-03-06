@@ -1,5 +1,6 @@
 import type { RequestHandler } from './$types';
 import { createSlug, getClasses, getSubjectsByClassId, getAllNotes } from '$lib/server/db';
+import { generateDownloadUrl } from '$lib/index';
 
 export const GET: RequestHandler = async ({ platform, url }) => {
 	if (!platform?.env?.DB) {
@@ -59,7 +60,7 @@ export const GET: RequestHandler = async ({ platform, url }) => {
 				: currentDate;
 			sitemap += `
     <url>
-        <loc>${baseUrl}/download/${note.id}</loc>
+        <loc>${baseUrl}${generateDownloadUrl(note)}</loc>
         <lastmod>${noteDate}</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.5</priority>

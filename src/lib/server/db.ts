@@ -63,13 +63,8 @@ export async function safeDbQuery<T>(
 	}
 }
 
-// Utility function to create slug from name
-export function createSlug(name: string): string {
-	return name
-		.toLowerCase()
-		.replace(/[^a-z0-9]+/g, '-')
-		.replace(/(^-|-$)/g, '');
-}
+import { createSlug } from '$lib/index';
+export { createSlug };
 
 // Simple database functions - types will be any for now to avoid compilation issues
 export async function getClasses(db: any): Promise<any[]> {
