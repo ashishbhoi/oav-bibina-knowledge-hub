@@ -93,6 +93,20 @@ export async function getClassById(db: any, id: number): Promise<any | null> {
 	}, 'Failed to fetch class by ID');
 }
 
+export async function getSubjectById(db: any, id: number): Promise<any | null> {
+	return safeDbQuery(async () => {
+		const result = await db.prepare('SELECT * FROM Subjects WHERE id = ?').bind(id).first();
+		return result || null;
+	}, 'Failed to fetch subject by ID');
+}
+
+export async function getFileTypeById(db: any, id: number): Promise<any | null> {
+	return safeDbQuery(async () => {
+		const result = await db.prepare('SELECT * FROM FileTypes WHERE id = ?').bind(id).first();
+		return result || null;
+	}, 'Failed to fetch file type by ID');
+}
+
 export async function getSubjectsByClassId(db: any, classId: number): Promise<any[]> {
 	return safeDbQuery(async () => {
 		const { results } = await db

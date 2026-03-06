@@ -25,9 +25,10 @@ export function createR2Client(
 export async function generateUploadUrl(
 	r2Client: S3Client,
 	bucketName: string,
-	fileExtension: string
+	fileExtension: string,
+	customKey?: string
 ): Promise<{ key: string; uploadUrl: string }> {
-	const key = `${uuidv4()}.${fileExtension}`;
+	const key = customKey || `${uuidv4()}.${fileExtension}`;
 
 	const command = new PutObjectCommand({
 		Bucket: bucketName,

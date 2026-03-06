@@ -18,7 +18,7 @@
 	}
 
 	let { data }: Props = $props();
-	const { stats } = data;
+	let stats = $derived(data.stats);
 </script>
 
 <svelte:head>
