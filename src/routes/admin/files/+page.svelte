@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { invalidateAll } from '$app/navigation';
+	import { generateDownloadUrl } from '$lib/index';
 
 	interface Props {
 		data: {
@@ -672,7 +673,7 @@
 																		>
 																			<div class="flex items-center justify-end space-x-3">
 																				<a
-																					href="/download/{file.id}"
+																					href={generateDownloadUrl(file)}
 																					class="text-brand-blue hover:text-blue-900 dark:text-blue-400 dark:hover:text-blue-300"
 																					title="Download"
 																				>
